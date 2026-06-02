@@ -1,69 +1,12 @@
 // ==UserScript==
-// @name                YouTube++
-// @name:ar             YouTube++
-// @name:az             YouTube++
-// @name:be             YouTube++
-// @name:bg             YouTube++
-// @name:zh-CN          YouTube++
-// @name:de             YouTube++
-// @name:nl             YouTube++
-// @name:en             YouTube++
-// @name:es             YouTube++
-// @name:fr             YouTube++
-// @name:hi             YouTube++
-// @name:id             YouTube++
-// @name:it             YouTube++
-// @name:ja             YouTube++
-// @name:kk             YouTube++
-// @name:ko             YouTube++
-// @name:ky             YouTube++
-// @name:pl             YouTube++
-// @name:pt             YouTube++
-// @name:tr             YouTube++
-// @name:zh-TW          YouTube++
-// @name:uk             YouTube++
-// @name:uz             YouTube++
-// @name:vi             YouTube++
+// @name                Youtube+++
 // @namespace           by
-// @version             1.0.1
+// @version             3.0.1
 // @author              Phabioski
-// @description         Вкладки для информации, комментариев, видео, плейлиста и скачивание видео и другие функции ↴
-// @description:ar      Tabview YouTube and download and other features ↴
-// @description:az      Tabview YouTube və yükləmə və digər xüsusiyyətlər ↴
-// @description:be      Tabview YouTube і загрузка і іншыя функцыі ↴
-// @description:bg      Tabview YouTube и изтегляне и други функции ↴
-// @description:zh-CN   标签视图 YouTube、下载及其他功能 ↴
-// @description:de      Tabview YouTube und Download und andere Funktionen ↴
-// @description:nl      Tabview YouTube en Download en andere functies ↴
-// @description:en      Tabview YouTube and Download and others features ↴
-// @description:es      Vista de pestañas de YouTube, descarga y otras funciones ↴
-// @description:fr      Tabview YouTube et Télécharger et autres fonctionnalités ↴
-// @description:hi      YouTube टैब व्यू, डाउनलोड और अन्य सुविधाएँ ↴
-// @description:id      Tampilan tab YouTube, unduh, dan fitur lainnya ↴
-// @description:it      Vista a schede per YouTube, download e altre funzionalità ↴
-// @description:ja      タブビューYouTubeとダウンロードおよびその他の機能 ↴
-// @description:kk      Tabview YouTube және жүктеу және басқа функциялар ↴
-// @description:ko      Tabview YouTube 및 다운로드 및 기타 기능 ↴
-// @description:ky      Tabview YouTube жана жүктөө жана башка функциялар ↴
-// @description:pl      Widok kart YouTube, pobieranie i inne funkcje ↴
-// @description:pt      Visualização em abas do YouTube, download e outros recursos ↴
-// @description:tr      Sekmeli Görünüm YouTube ve İndir ve diğer özellikler ↴
-// @description:zh-TW   標籤檢視 YouTube 及下載及其他功能 ↴
-// @description:uk      Перегляд вкладок YouTube, завантаження та інші функції ↴
-// @description:uz      YouTube uchun tabview va yuklab olish va boshqa xususiyatlar ↴
-// @description:vi      Chế độ tab cho YouTube, tải xuống và các tính năng khác ↴
+// @description         Direct download video, audio, subtitles, image-video, AD-Block, PiP and more
 // @match               https://*.youtube.com/*
 // @match               https://music.youtube.com/*
 // @match               https://studio.youtube.com/*
-// @match               *://myactivity.google.com/*
-// @include             *://www.youtube.com/feed/history/*
-// @include             https://www.youtube.com
-// @include             *://*.youtube.com/**
-// @exclude             *://accounts.youtube.com/*
-// @exclude             *://www.youtube.com/live_chat_replay*
-// @exclude             *://www.youtube.com/persist_identity*
-// @exclude             /^https?://\w+\.youtube\.com\/live_chat.*$/
-// @exclude             /^https?://\S+\.(txt|png|jpg|jpeg|gif|xml|svg|manifest|log|ini)[^\/]*$/
 // @icon                https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @license             MIT
 // @require             https://cdn.jsdelivr.net/npm/@preact/signals-core@1.12.1/dist/signals-core.min.js
@@ -72,6 +15,7 @@
 // @require             https://cdn.jsdelivr.net/npm/preact@10.27.2/hooks/dist/hooks.umd.js
 // @require             https://cdn.jsdelivr.net/npm/@preact/signals@2.5.0/dist/signals.min.js
 // @require             https://cdn.jsdelivr.net/npm/dayjs@1.11.19/dayjs.min.js
+// @require             https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js
 // @grant               GM_addStyle
 // @grant               GM_getValue
 // @grant               GM_setValue
@@ -79,34 +23,22 @@
 // @grant               GM_xmlhttpRequest
 // @grant               unsafeWindow
 // @grant               GM_addElement
+// @grant               GM_info
+// @grant               GM_registerMenuCommand
 // @connect             api.livecounts.io
-// @connect             livecounts.io
-// @connect             cnv.cx
-// @connect             mp3yt.is
 // @connect             returnyoutubedislikeapi.com
 // @connect             translate.googleapis.com
-// @connect             ldpccocxlrdsyejfhrvc.supabase.co
+// @connect             p.savenow.to
+// @connect             p.lbserver.xyz
+// @connect             dubs.io
 // @connect             raw.githubusercontent.com
-// @connect             cdn.jsdelivr.net
-// @connect             greasyfork.org
-// @connect             update.greasyfork.org
 // @connect             youtube.com
 // @connect             www.youtube.com
-// @connect             m.youtube.com
 // @connect             googlevideo.com
 // @connect             i.ytimg.com
-// @connect             ytimg.com
-// @connect             yt3.ggpht.com
-// @connect             yt3.googleusercontent.com
-// @connect             fonts.googleapis.com
-// @connect             www.gstatic.com
-// @connect             self
-// @run-at              document-start
-// @noframes
-// @homepageURL         https://github.com/diorhc/YTP
-// @supportURL          https://github.com/diorhc/YTP/discussions
-// @downloadURL https://update.greasyfork.org/scripts/537017/YouTube%20%2B.user.js
-// @updateURL https://update.greasyfork.org/scripts/537017/YouTube%20%2B.meta.js
+// @homepageURL         https://github.com/Mazzafa/YT_PLUS_PLUS
+// @supportURL          https://github.com/Mazzafa/YT_PLUS_PLUS
+// @downloadURL https://github.com/Mazzafa/YT_PLUS_PLUS/blob/main/yt%2B%2B__by.phabioski.js
 // ==/UserScript==
 !(function() {
 "use strict";
@@ -4054,6 +3986,7 @@ addCustomButtons() {
 const controls = this.getElement(".ytp-right-controls");
 if (controls) {
 this.getElement(".ytp-screenshot-button") || this.addScreenshotButton(controls);
+this.getElement(".ytp-subtitle-dl-button") || this.addSubtitleDownloadButton(controls);
 this.getElement(".ytp-download-button") || this.addDownloadButton(controls);
 this.getElement(".speed-control-btn") || this.addSpeedControlButton(controls);
 if (!document.getElementById("speed-indicator")) {
@@ -4070,9 +4003,112 @@ const button = document.createElement("button");
 button.className = "ytp-button ytp-screenshot-button";
 button.setAttribute("title", t("takeScreenshot"));
 button.setAttribute("aria-label", t("takeScreenshot"));
-_setSafeHTML(button, '\n          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M7.142 18.9706C5.18539 18.8995 3.99998 18.6568 3.17157 17.8284C2 16.6569 2 14.7712 2 11C2 7.22876 2 5.34315 3.17157 4.17157C4.34315 3 6.22876 3 10 3H14C17.7712 3 19.6569 3 20.8284 4.17157C22 5.34315 22 7.22876 22 11C22 14.7712 22 16.6569 20.8284 17.8284C20.0203 18.6366 18.8723 18.8873 17 18.965" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" style="--darkreader-inline-stroke: var(--darkreader-text-ffffff, #cad3f5);" data-darkreader-inline-stroke=""></path> <path d="M9.94955 16.0503C10.8806 15.1192 11.3461 14.6537 11.9209 14.6234C11.9735 14.6206 12.0261 14.6206 12.0787 14.6234C12.6535 14.6537 13.119 15.1192 14.0501 16.0503C16.0759 18.0761 17.0888 19.089 16.8053 19.963C16.7809 20.0381 16.7506 20.1112 16.7147 20.1815C16.2973 21 14.8648 21 11.9998 21C9.13482 21 7.70233 21 7.28489 20.1815C7.249 20.1112 7.21873 20.0381 7.19436 19.963C6.91078 19.089 7.92371 18.0761 9.94955 16.0503Z" stroke="#ffffff" stroke-width="1.5" style="--darkreader-inline-stroke: var(--darkreader-text-ffffff, #cad3f5);" data-darkreader-inline-stroke=""></path></svg>  \n        ');
+_setSafeHTML(button, '<svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01"/><path d="M6 13l2.644-2.644a1.21 1.21 0 0 1 1.712 0l3.644 3.644"/><path d="M13 13l1.644-1.644a1.21 1.21 0 0 1 1.712 0l1.644 1.644"/><path d="M4 8v-2a2 2 0 0 1 2-2h2"/><path d="M4 16v2a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M16 20h2a2 2 0 0 0 2-2v-2"/></svg>');
 button.addEventListener("click", this.captureFrame.bind(this));
 controls.insertBefore(button, controls.firstChild);
+},
+addSubtitleDownloadButton(controls) {
+  const btn = document.createElement("button");
+  btn.className = "ytp-button ytp-subtitle-dl-button";
+  btn.setAttribute("title", "Download Subtitles");
+  btn.setAttribute("aria-label", "Download Subtitles");
+  btn.style.cursor = "pointer";
+  btn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h4"/><path d="M13 15h4"/><path d="M7 11h10"/><path d="M7 7h10"/></svg>';
+  btn.addEventListener("click", () => {
+    // Remove existing panel if toggling
+    const existing = document.getElementById("ph-sub-panel");
+    if (existing) { existing.remove(); return; }
+
+    // Gather subtitle tracks from YouTube player response
+    let tracks = [];
+    try {
+      const pr = window.ytInitialPlayerResponse ||
+                 window.ytplayer?.config?.args?.raw_player_response;
+      const parsed = typeof pr === "string" ? JSON.parse(pr) : pr;
+      const tl = parsed?.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
+      tracks = tl.map(t => ({
+        name: (t.name?.simpleText || t.name?.runs?.[0]?.text || "Unknown"),
+        langCode: t.languageCode || "",
+        url: t.baseUrl || "",
+        isAuto: t.kind === "asr"
+      }));
+    } catch(e) {}
+
+    const panel = document.createElement("div");
+    panel.id = "ph-sub-panel";
+    panel.style.cssText = "position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);" +
+      "background:#1a1a1a;border:1.5px solid rgba(255,255,255,.15);border-radius:16px;" +
+      "padding:20px 22px;min-width:290px;max-width:94vw;z-index:2147483647;" +
+      "box-shadow:0 12px 40px rgba(0,0,0,.7);color:#fff;font-family:system-ui,sans-serif;";
+
+    if (!tracks.length) {
+      panel.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:15px;font-weight:600;">Download Subtitles <button id="ph-sub-x" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">✕</button></div><div style="font-size:13px;opacity:.7;text-align:center;padding:8px 0">No subtitles available for this video.</div>';
+    } else {
+      const opts = tracks.map((t, i) => `<option value="${i}">${t.name}${t.isAuto ? " (auto)" : ""} [${t.langCode}]</option>`).join("");
+      panel.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:15px;font-weight:600;">
+          Download Subtitles <button id="ph-sub-x" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">✕</button>
+        </div>
+        <select id="ph-sub-track" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#222;color:#fff;font-size:13px;margin-bottom:10px;">${opts}</select>
+        <select id="ph-sub-fmt" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#222;color:#fff;font-size:13px;margin-bottom:14px;">
+          <option value="srt">SRT</option>
+          <option value="txt">TXT (plain text)</option>
+          <option value="xml">XML (raw)</option>
+        </select>
+        <button id="ph-sub-dl" style="width:100%;padding:10px;border-radius:10px;border:none;background:linear-gradient(135deg,#c00,#ff3333);color:#fff;font-size:14px;font-weight:600;cursor:pointer;">Download</button>
+        <div id="ph-sub-status" style="font-size:12px;color:#aaa;text-align:center;margin-top:8px;min-height:16px;"></div>`;
+    }
+
+    document.body.appendChild(panel);
+    document.getElementById("ph-sub-x").onclick = () => panel.remove();
+
+    const dlBtn = document.getElementById("ph-sub-dl");
+    if (dlBtn) {
+      dlBtn.addEventListener("click", async () => {
+        const idx = parseInt(document.getElementById("ph-sub-track").value, 10);
+        const fmt = document.getElementById("ph-sub-fmt").value;
+        const track = tracks[idx];
+        const statusEl = document.getElementById("ph-sub-status");
+        if (!track) return;
+        statusEl.textContent = "Downloading…";
+        try {
+          const sep = track.url.includes("?") ? "&" : "?";
+          const res = await fetch(track.url + sep + "fmt=srv3");
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const xml = await res.text();
+          const doc = new DOMParser().parseFromString(xml, "text/xml");
+          const cues = Array.from(doc.querySelectorAll("text")).map(n => ({
+            start: parseFloat(n.getAttribute("start") || "0"),
+            dur: parseFloat(n.getAttribute("dur") || "0"),
+            text: n.textContent.replace(/&#39;/g,"'").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"')
+          }));
+          const pad = n => String(Math.floor(n)).padStart(2,"0");
+          const toSRT = s => { const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=Math.floor(s%60),ms=Math.round((s%1)*1000); return pad(h)+":"+pad(m)+":"+pad(sec)+","+String(ms).padStart(3,"0"); };
+          let content = "", ext = fmt;
+          if (fmt === "srt") content = cues.map((c,i) => (i+1)+"\n"+toSRT(c.start)+" --> "+toSRT(c.start+c.dur)+"\n"+c.text+"\n").join("\n");
+          else if (fmt === "txt") content = cues.map(c => c.text).join("\n");
+          else { content = xml; ext = "xml"; }
+          const title = (document.querySelector("h1.style-scope.ytd-watch-metadata")?.innerText || "subtitles").replace(/[/\\?%*:|"<>]/g,"_");
+          const blob = new Blob([content], {type:"text/plain;charset=utf-8"});
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = title + "_" + track.langCode + "." + ext;
+          a.click(); URL.revokeObjectURL(a.href);
+          statusEl.textContent = "✅ Downloaded!";
+          setTimeout(() => panel.remove(), 1200);
+        } catch(e) { statusEl.textContent = "❌ " + e.message; }
+      });
+    }
+
+    setTimeout(() => {
+      document.addEventListener("click", function outsideClose(ev) {
+        if (!panel.contains(ev.target) && ev.target !== btn) {
+          panel.remove(); document.removeEventListener("click", outsideClose);
+        }
+      });
+    }, 100);
+  });
+  controls.insertBefore(btn, controls.firstChild);
 },
 addDownloadButton(controls) {
 if ("undefined" != typeof window && window.YouTubePlusDownloadButton) {
@@ -6244,7 +6280,7 @@ a(n);
 }
 }
 }, f = 1, d = target => !!(target = target || e.ytcsi) && (e.ytcsi = new Proxy(target, {
-get: (obj, key) => "originalYtcsi" === key ? obj : (o(), c && --f <= 0 && l && l(), 
+get: (obj, key) => "originalYtcsi" === key ? obj : (o(), c && --f <= 0 && l && l(),
 obj[key])
 }), !0);
 d() || Object.defineProperty(e, "ytcsi", {
@@ -6269,10 +6305,10 @@ once: !0
 });
 } else {
 const t = () => {
-done(), y.call(document, "yt-page-data-fetched", t, !1), y.call(document, "yt-navigate-finish", t, !1), 
+done(), y.call(document, "yt-page-data-fetched", t, !1), y.call(document, "yt-navigate-finish", t, !1),
 y.call(document, "spfdone", t, !1);
 };
-s.call(document, "yt-page-data-fetched", t, !1), s.call(document, "yt-navigate-finish", t, !1), 
+s.call(document, "yt-page-data-fetched", t, !1), s.call(document, "yt-navigate-finish", t, !1),
 s.call(document, "spfdone", t, !1);
 }
 }).then(o), new a(done => {
@@ -6346,7 +6382,7 @@ var nextBrowserTick = void 0 !== nextBrowserTick && nextBrowserTick.version >= 2
 const e = "undefined" != typeof globalThis ? globalThis : window;
 let t = !0;
 if (!(function n(s) {
-return s ? t = !1 : !(!e.postMessage || e.importScripts || !e.addEventListener) && (e.addEventListener("message", n, !1), 
+return s ? t = !1 : !(!e.postMessage || e.importScripts || !e.addEventListener) && (e.addEventListener("message", n, !1),
 e.postMessage("$$$", "*"), e.removeEventListener("message", n, !1), t);
 })()) {
 return void mainLog.warn("Your browser environment cannot use nextBrowserTick");
@@ -9500,7 +9536,7 @@ var nextBrowserTick = void 0 !== nextBrowserTick && nextBrowserTick.version >= 2
 const e = "undefined" != typeof globalThis ? globalThis : window;
 let t = !0;
 if (!(function n(s) {
-return s ? t = !1 : !(!e.postMessage || e.importScripts || !e.addEventListener) && (e.addEventListener("message", n, !1), 
+return s ? t = !1 : !(!e.postMessage || e.importScripts || !e.addEventListener) && (e.addEventListener("message", n, !1),
 e.postMessage("$$$", "*"), e.removeEventListener("message", n, !1), t);
 })()) {
 return void mainLog.warn("Your browser environment cannot use nextBrowserTick");
@@ -11163,2960 +11199,310 @@ createFocusTrap
  * @version 3.0
  */ !(function() {
 "use strict";
-const _setSafeHTML = window.YouTubeUtils.setSafeHTML;
-const createVisibilityAwareInterval = window.YouTubeUtils?.createVisibilityAwareInterval || ((callback, delay) => {
-const id = setInterval(() => {
-document.hidden || callback();
-}, delay);
-return {
-stop() {
-clearInterval(id);
-},
-pause() {
-clearInterval(id);
-},
-resume() {},
-get active() {
-return !0;
+// ── Phabioski Download Engine ─────────────────────────────────────────────────
+const PH_DL_KEY   = 'dfcb6d76f2f6a9894gjkege8a4ab232222';
+const PH_DL_BASES = ['https://p.savenow.to', 'https://p.lbserver.xyz'];
+const PH_DUBS_START  = 'https://dubs.io/wp-json/tools/v1/download-video';
+const PH_DUBS_STATUS = 'https://dubs.io/wp-json/tools/v1/status-video';
+// const PH_HINT = "If the download doesn't start automatically, make sure pop-ups are allowed on YouTube — or wait for the progress bar to reach 100% and press the download button that will appear below.";
+
+function phFetchJson(url, ms) {
+  ms = ms || 22000;
+  return new Promise(function(res, rej) {
+    var ctrl = new AbortController();
+    var t = setTimeout(function(){ ctrl.abort(); }, ms);
+    fetch(url, {signal: ctrl.signal})
+      .then(function(r){ clearTimeout(t); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(res).catch(function(e){ clearTimeout(t); rej(e); });
+  });
 }
-};
-});
-const setTimeout_ = setTimeout.bind(window);
-const _potParamsByVideoId = new Map;
-const _potCarriedParamNames = [ "pot", "potc", "c", "cver", "cplayer", "cos", "cosver", "cplatform", "cbr", "cbrver", "xorb", "xobt", "xovt" ];
-let _potHooksInstalled = !1;
-let _potElicitInflight = !1;
-function _pageGlobal() {
-return "undefined" != typeof unsafeWindow ? unsafeWindow : window;
+
+function phGetVideoId() {
+  try { return new URLSearchParams(window.location.search).get('v') || ''; } catch(e){ return ''; }
 }
-function _rememberPotFromTimedtextUrl(rawUrl) {
-try {
-if (!rawUrl || -1 === rawUrl.indexOf("/api/timedtext")) {
-return;
-}
-const u = new URL(rawUrl, "https://www.youtube.com");
-const videoId = u.searchParams.get("v");
-const pot = u.searchParams.get("pot");
-if (!videoId || !pot) {
-return;
-}
-const collected = {};
-for (const name of _potCarriedParamNames) {
-const value = u.searchParams.get(name);
-null != value && "" !== value && (collected[name] = value);
-}
-_potParamsByVideoId.set(videoId, collected);
-} catch (e) {}
-}
-!(function _installPotHooksOnce() {
-if (_potHooksInstalled) {
-return;
-}
-const pg = _pageGlobal();
-if (pg && "object" == typeof pg) {
-try {
-const origFetch = pg.fetch;
-"function" == typeof origFetch && (pg.fetch = function patchedFetch(input, _init) {
-try {
-const inputWithUrl = input && "object" == typeof input ? input : {};
-const url = "string" == typeof input ? input : input instanceof URL ? input.toString() : "string" == typeof inputWithUrl.url ? inputWithUrl.url : "";
-url && _rememberPotFromTimedtextUrl(url);
-} catch (e) {}
-return origFetch.call(this, input, _init);
-});
-const xhrProto = pg.XMLHttpRequest && pg.XMLHttpRequest.prototype;
-if (xhrProto && "function" == typeof xhrProto.open) {
-const origOpen = xhrProto.open;
-const patchedOpen = function(...args) {
-try {
-const url = args[1];
-"string" == typeof url && _rememberPotFromTimedtextUrl(url);
-} catch (e) {}
-return origOpen.apply(this, args);
-};
-xhrProto.open = patchedOpen;
-}
-_potHooksInstalled = !0;
-} catch (e) {}
-}
+
+// Inject CSS once
+(function(){
+  if(document.getElementById('ph-dl-css')) return;
+  var st = document.createElement('style');
+  st.id = 'ph-dl-css';
+  st.textContent = [
+    '.ph-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147483647;',
+    'display:flex;align-items:center;justify-content:center;',
+    'backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}',
+    '.ph-panel{background:#1a1a1a;border:1.5px solid rgba(255,255,255,.13);border-radius:20px;',
+    'padding:22px 24px;width:380px;max-width:95vw;position:relative;',
+    'box-shadow:0 16px 48px rgba(0,0,0,.65);color:#fff;font-family:system-ui,sans-serif;}',
+    '.ph-panel select{width:100%;padding:8px 10px;border-radius:9px;',
+    'border:1px solid rgba(255,255,255,.18);background:#272727;color:#fff;',
+    'font-size:13px;cursor:pointer;outline:none;margin-bottom:10px;appearance:auto;}',
+    '.ph-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;',
+    'background:transparent;border:1px solid rgba(255,255,255,.18);',
+    'color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}',
+    '.ph-close:hover{background:rgba(255,0,0,.3);}',
+    '.ph-title{font-size:15px;font-weight:600;margin-bottom:16px;}',
+    '.ph-section{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#888;font-weight:600;margin-bottom:5px;}',
+    '.ph-hr{border:none;border-top:1px solid rgba(255,255,255,.1);margin:12px 0;}',
+    '.ph-dl-box{border-radius:10px;padding:11px;margin-bottom:4px;transition:all .3s;}',
+    '.ph-dl-box.video{background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;}',
+    '.ph-dl-box.audio{background:linear-gradient(135deg,#00cc44,#009933);color:#fff;}',
+    '.ph-dl-box.done{background:linear-gradient(135deg,#00cc44,#009933)!important;color:#fff;}',
+    '.ph-dl-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}',
+    '.ph-dl-text{font-weight:600;font-size:13px;}',
+    '.ph-dl-qual{font-size:11px;opacity:.9;}',
+    '.ph-dl-acts{display:flex;gap:7px;margin-bottom:7px;}',
+    '.ph-btn{flex:1;padding:7px 14px;border:none;border-radius:6px;font-weight:600;font-size:12px;cursor:pointer;color:#fff;transition:all .25s;}',
+    '.ph-btn.v{background:linear-gradient(135deg,#ff6666,#ff4444);}',
+    '.ph-btn.a{background:linear-gradient(135deg,#00dd55,#00cc44);}',
+    '.ph-btn:hover{transform:translateY(-1px);}',
+    '.ph-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}',
+    '.ph-retry{padding:7px 14px;border:none;border-radius:6px;font-weight:600;font-size:12px;cursor:pointer;background:linear-gradient(135deg,#ffaa00,#ff8800);color:#fff;}',
+    '.ph-prog-wrap{display:flex;align-items:center;gap:8px;margin-bottom:6px;}',
+    '.ph-prog-bar{flex:1;height:5px;background:rgba(255,255,255,.3);border-radius:3px;overflow:hidden;}',
+    '.ph-prog-fill{height:100%;background:rgba(255,255,255,.85);border-radius:3px;width:0%;transition:width .35s;}',
+    '.ph-prog-txt{font-size:11px;font-weight:500;min-width:30px;}',
+    '.ph-footer{font-size:10px;opacity:.75;text-align:center;margin-top:5px;font-weight:700;}',
+    ''
+  ].join('');
+  document.head.appendChild(st);
 })();
-function _getVideoIdFromCandidate(url) {
-try {
-const u = new URL(url, "https://www.youtube.com");
-return u.searchParams.get("v") || "";
-} catch (e) {
-return "";
-}
-}
-const isRelevantRoute = () => {
-try {
-const path = location.pathname || "";
-return "/watch" === path || path.startsWith("/shorts");
-} catch (e) {
-return !1;
-}
-};
-const $ = sel => window.YouTubeUtils?.$(sel) || document.querySelector(sel);
-if (void 0 === YouTubeUtils) {
-window.console.error("[YouTube+ Download] YouTubeUtils not found!");
-return;
-}
-const {NotificationManager} = YouTubeUtils;
-const t = (key, params = {}) => {
-if (window.YouTubeUtils?.t) {
-return window.YouTubeUtils.t(key, params);
-}
-const str = String(key || "");
-if (!params || 0 === Object.keys(params).length) {
-return str;
-}
-let result = str;
-for (const [k, v] of Object.entries(params)) {
-result = result.split(`{${k}}`).join(String(v));
-}
-return result;
-};
-const _YouTubePlusLogger = window.YouTubePlusLogger;
-const logger = void 0 !== _YouTubePlusLogger && _YouTubePlusLogger ? _YouTubePlusLogger.createLogger("Download") : {
-debug: () => {},
-info: () => {},
-warn: window.console.warn.bind(console),
-error: window.console.error.bind(console)
-};
-const DownloadConfig = {
-API: {
-KEY_URL: "https://cnv.cx/v2/sanity/key",
-CONVERT_URL: "https://cnv.cx/v2/converter"
-},
-HEADERS: {
-"Content-Type": "application/json",
-Origin: "https://mp3yt.is",
-Accept: "*/*",
-"User-Agent": "undefined" != typeof navigator ? navigator.userAgent : ""
-},
-VIDEO_QUALITIES: [ "144", "240", "360", "480", "720", "1080", "1440", "2160" ],
-AUDIO_BITRATES: [ "64", "128", "192", "256", "320" ],
-DEFAULTS: {
-format: "video",
-videoQuality: "1080",
-audioBitrate: "320",
-embedThumbnail: !0
-}
-};
-function getVideoId() {
-try {
-const params = new URLSearchParams(window.location.search || "");
-const fromQuery = params.get("v");
-if (fromQuery) {
-return fromQuery;
-}
-const path = window.location.pathname || "";
-const shortsMatch = path.match(/^\/shorts\/([a-zA-Z0-9_-]{11})/);
-if (shortsMatch && shortsMatch[1]) {
-return shortsMatch[1];
-}
-const liveMatch = path.match(/^\/live\/([a-zA-Z0-9_-]{11})/);
-if (liveMatch && liveMatch[1]) {
-return liveMatch[1];
-}
-const youtuBeMatch = (window.location.href || "").match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
-if (youtuBeMatch && youtuBeMatch[1]) {
-return youtuBeMatch[1];
-}
-} catch (e) {}
-return null;
-}
-function getVideoUrl() {
-const videoId = getVideoId();
-return videoId ? `https://www.youtube.com/watch?v=${videoId}` : window.location.href;
-}
-function getVideoTitle() {
-try {
-const titleElement = $("h1.ytd-video-primary-info-renderer yt-formatted-string") || $("h1.title yt-formatted-string") || $("ytd-watch-metadata h1");
-return titleElement ? titleElement.textContent.trim() : "video";
-} catch (e) {
-return "video";
-}
-}
-function sanitizeFilename(filename) {
-return filename.replace(/[<>:"/\\|?*]/g, "").replace(/[\x00-\x1f\x7f\u200b-\u200f\u2028-\u202f\ufeff]/g, "").replace(/\s+/g, " ").trim().substring(0, 200);
-}
-function formatBytes(bytes) {
-if (0 === bytes) {
-return "0 B";
-}
-const i = Math.floor(Math.log(bytes) / Math.log(1024));
-return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${[ "B", "KB", "MB", "GB" ][i]}`;
-}
-function createGmRequestOptions(options, resolve, reject) {
-return {
-...options,
-onload: response => {
-options.onload && options.onload(response);
-resolve(response);
-},
-onerror: error => {
-options.onerror && options.onerror(error);
-reject(error);
-},
-ontimeout: () => {
-options.ontimeout && options.ontimeout();
-reject(new Error("Request timeout"));
-}
-};
-}
-const _downloadRateLimiter = (() => {
-const RATE_LIMIT_EXEMPT_PATHS = [ "/api/timedtext", "/api/timedtext_ui" ];
-const requests = new Map;
-const backoffUntil = new Map;
-return {
-canRequest(url) {
-let host = "unknown";
-let pathname = "";
-try {
-const parsed = new URL(url);
-host = parsed.hostname;
-pathname = parsed.pathname;
-} catch (e) {}
-if (RATE_LIMIT_EXEMPT_PATHS.some(p => pathname.startsWith(p))) {
-return !0;
-}
-const now = Date.now();
-const backoff = backoffUntil.get(host) || 0;
-if (now < backoff) {
-window.console.warn(`[YouTube+ Download] Rate limit backoff: ${host} blocked for ${Math.ceil((backoff - now) / 1e3)}s more`);
-return !1;
-}
-const recent = (requests.get(host) || []).filter(t => now - t < 6e4);
-if (recent.length >= 15) {
-const consecutiveHits = Math.min(5, Math.floor(recent.length / 15));
-const backoffMs = Math.min(6e4, 2e3 * Math.pow(2, consecutiveHits));
-backoffUntil.set(host, now + backoffMs);
-window.console.warn(`[YouTube+ Download] Rate limit: ${recent.length}/15 requests to ${host}, backing off ${backoffMs}ms`);
-return !1;
-}
-recent.push(now);
-requests.set(host, recent);
-return !0;
-}
-};
-})();
-function gmXmlHttpRequest(options) {
-return new Promise((resolve, reject) => {
-if (options.url && !_downloadRateLimiter.canRequest(options.url)) {
-reject(new Error("[YouTube+ Download] Rate limit exceeded — request blocked"));
-return;
-}
-if ("undefined" != typeof GM_xmlhttpRequest) {
-GM_xmlhttpRequest(createGmRequestOptions(options, resolve, reject));
-return;
-}
-const gmApi = globalThis.GM;
-gmApi && "function" == typeof gmApi.xmlHttpRequest ? gmApi.xmlHttpRequest(createGmRequestOptions(options, resolve, reject)) : (async () => {
-try {
-const responseLike = await (async function executeFetchFallback(options) {
-const fetchOpts = {
-method: options.method || "GET",
-headers: options.headers || {},
-body: options.data || options.body || void 0
-};
-const resp = await fetch(options.url, fetchOpts);
-const responseLike = (function buildResponseObject(resp) {
-return {
-status: resp.status,
-statusText: resp.statusText,
-finalUrl: resp.url,
-headers: {},
-responseText: null,
-response: null
-};
-})(resp);
-await (async function extractResponseText(resp, responseLike) {
-try {
-responseLike.responseText = await resp.text();
-} catch (e) {
-responseLike.responseText = null;
-}
-})(resp, responseLike);
-await (async function extractResponseBlob(resp, responseLike, responseType) {
-if ("blob" === responseType) {
-try {
-responseLike.response = await resp.blob();
-} catch (e) {
-responseLike.response = null;
-}
-}
-})(resp, responseLike, options.responseType);
-options.onload && options.onload(responseLike);
-return responseLike;
-})(options);
-resolve(responseLike);
-} catch (err) {
-options.onerror && options.onerror(err);
-reject(err);
-}
-})();
-});
-}
-const _playerDataCache = (() => {
-const store = new Map;
-return {
-get(videoId) {
-const entry = store.get(videoId);
-if (!entry) {
-return null;
-}
-if (Date.now() - entry.ts > 3e5) {
-store.delete(videoId);
-return null;
-}
-return entry.data;
-},
-set(videoId, data) {
-if (store.size >= 10) {
-const oldestKey = store.keys().next().value;
-"string" == typeof oldestKey && store.delete(oldestKey);
-}
-store.set(videoId, {
-data,
-ts: Date.now()
-});
-}
-};
-})();
-async function fetchPlayerData(videoId) {
-const cached = _playerDataCache.get(videoId);
-if (cached) {
-return cached;
-}
-const response = await gmXmlHttpRequest({
-method: "POST",
-url: "https://www.youtube.com/youtubei/v1/player",
-headers: {
-"Content-Type": "application/json",
-"User-Agent": DownloadConfig.HEADERS["User-Agent"]
-},
-data: JSON.stringify({
-context: {
-client: {
-clientName: "WEB",
-clientVersion: "2.20240304.00.00"
-}
-},
-videoId
-})
-});
-if (200 !== response.status) {
-throw new Error(`Failed to get player data: ${response.status}`);
-}
-const parsed = JSON.parse(response.responseText);
-_playerDataCache.set(videoId, parsed);
-return parsed;
-}
-function extractAvailableVideoQualities(playerData) {
-const streamingData = playerData?.streamingData || {};
-const combined = [ ...Array.isArray(streamingData.formats) ? streamingData.formats : [], ...Array.isArray(streamingData.adaptiveFormats) ? streamingData.adaptiveFormats : [] ];
-const qualitySet = new Set;
-combined.forEach(format => {
-const mimeType = String(format?.mimeType || "");
-if (!mimeType.includes("video/")) {
-return;
-}
-const qualityLabel = String(format?.qualityLabel || "").trim();
-const match = qualityLabel.match(/(\d{3,4})p/i);
-match && qualitySet.add(match[1]);
-});
-return Array.from(qualitySet).sort((left, right) => Number(left) - Number(right));
-}
-function extractBalancedJsonObject(src, startIdx) {
-if (startIdx < 0 || startIdx >= src.length || "{" !== src[startIdx]) {
-return null;
-}
-let depth = 0;
-let inStr = !1;
-let escape = !1;
-for (let i = startIdx; i < src.length; i++) {
-const ch = src[i];
-if (escape) {
-escape = !1;
-} else if (inStr) {
-"\\" === ch ? escape = !0 : '"' === ch && (inStr = !1);
-} else if ('"' === ch) {
-inStr = !0;
-} else if ("{" === ch) {
-depth++;
-} else if ("}" === ch) {
-depth--;
-if (0 === depth) {
-return src.slice(startIdx, i + 1);
-}
-}
-}
-return null;
-}
-async function fetchPlayerResponseFromWatchHtml(videoId) {
-try {
-const watchUrl = `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
-const response = await gmXmlHttpRequest({
-method: "GET",
-url: watchUrl
-});
-if (200 !== response.status || !response.responseText) {
-return null;
-}
-const html = String(response.responseText);
-const assignRe = /ytInitialPlayerResponse\s*=\s*\{/g;
-let match;
-for (;null !== (match = assignRe.exec(html)); ) {
-const braceIdx = match.index + match[0].length - 1;
-const jsonText = extractBalancedJsonObject(html, braceIdx);
-if (jsonText) {
-try {
-return JSON.parse(jsonText);
-} catch (e) {}
-}
-}
-return null;
-} catch (error) {
-logger.warn("Watch HTML subtitle fallback failed:", error);
-return null;
-}
-}
-function buildSubtitleUrl(baseUrl) {
-const normalized = normalizeSubtitleBaseUrl(baseUrl);
-return normalized ? normalized.includes("fmt=") ? normalized : `${normalized}&fmt=srv1` : "";
-}
-function normalizeSubtitleBaseUrl(baseUrl) {
-const raw = String(baseUrl || "").trim();
-return raw ? raw.replace(/&amp;/g, "&") : "";
-}
-async function extractSubtitleBody(response) {
-const text = String(response?.responseText || "").trim();
-if (text) {
-return text;
-}
-const rawResponse = response?.response;
-if ("string" == typeof rawResponse && rawResponse.trim()) {
-return rawResponse.trim();
-}
-const xmlDoc = response?.responseXML;
-if (xmlDoc && window.XMLSerializer) {
-try {
-const serialized = (new window.XMLSerializer).serializeToString(xmlDoc).trim();
-if (serialized) {
-return serialized;
-}
-} catch (e) {}
-}
-if (rawResponse && "object" == typeof rawResponse) {
-const rawDocument = rawResponse;
-if ("string" == typeof rawDocument?.documentElement?.nodeName && window.XMLSerializer) {
-try {
-const serialized = (new window.XMLSerializer).serializeToString(rawDocument).trim();
-if (serialized) {
-return serialized;
-}
-} catch (e) {}
-}
-}
-if (rawResponse && rawResponse instanceof ArrayBuffer) {
-try {
-return window.TextDecoder ? new window.TextDecoder("utf-8").decode(rawResponse).trim() : "";
-} catch (e) {
-return "";
-}
-}
-if (rawResponse && ArrayBuffer.isView(rawResponse)) {
-try {
-const view = rawResponse;
-const sliced = view.buffer.slice(view.byteOffset, view.byteOffset + view.byteLength);
-if (window.TextDecoder) {
-return new window.TextDecoder("utf-8").decode(sliced).trim();
-}
-} catch (e) {}
-}
-if ("undefined" != typeof Blob && rawResponse instanceof Blob) {
-try {
-return (await rawResponse.text()).trim();
-} catch (e) {}
-}
-if (rawResponse && "object" == typeof rawResponse) {
-const rawObject = rawResponse;
-const maybeText = rawObject.text || rawObject.data || rawObject.content;
-if ("string" == typeof maybeText && maybeText.trim()) {
-return maybeText.trim();
-}
-if ("function" == typeof rawObject.text) {
-try {
-const extracted = await rawObject.text();
-if ("string" == typeof extracted && extracted.trim()) {
-return extracted.trim();
-}
-} catch (e) {}
-}
-}
-return "";
-}
-function parseCaptionTracks(captionTracks) {
-return captionTracks.map(track => ({
-name: track.name?.simpleText || track.languageCode,
-languageCode: track.languageCode,
-url: buildSubtitleUrl(track.baseUrl),
-baseUrl: normalizeSubtitleBaseUrl(track.baseUrl),
-isAutoGenerated: "asr" === track.kind,
-trackId: String(track?.vssId || ""),
-kind: String(track?.kind || "")
-}));
-}
-function findBestCaptionTrack(captionTracks, criteria = {}) {
-const tracks = Array.isArray(captionTracks) ? captionTracks.filter(Boolean) : [];
-if (0 === tracks.length) {
-return null;
-}
-const wantedLang = String(criteria.languageCode || "").trim();
-const wantedBaseUrl = normalizeSubtitleBaseUrl(criteria.baseUrl || "");
-const wantedTrackId = String(criteria.trackId || "").trim();
-const wantsAuto = "boolean" == typeof criteria.isAutoGenerated ? criteria.isAutoGenerated : null;
-const scoreTrack = track => {
-let score = 0;
-const trackBaseUrl = normalizeSubtitleBaseUrl(track?.baseUrl || "");
-const trackLang = String(track?.languageCode || "");
-const trackId = String(track?.vssId || "");
-const trackIsAuto = "asr" === track?.kind;
-const langPrefix = wantedLang ? wantedLang.split("-")[0] : "";
-wantedTrackId && trackId && trackId === wantedTrackId && (score += 120);
-wantedBaseUrl && trackBaseUrl && trackBaseUrl === wantedBaseUrl && (score += 100);
-wantedLang && trackLang === wantedLang ? score += 40 : langPrefix && trackLang.startsWith(langPrefix) && (score += 20);
-null !== wantsAuto && (score += trackIsAuto === wantsAuto ? 15 : -5);
-!1 !== track?.isTranslatable && (score += 5);
-trackBaseUrl && (score += 2);
-return score;
-};
-return tracks.map(track => ({
-track,
-score: scoreTrack(track)
-})).sort((left, right) => right.score - left.score)[0]?.track || null;
-}
-function parseTranslationLanguages(translationLanguages, sourceTrack) {
-const sourceBaseUrl = normalizeSubtitleBaseUrl(sourceTrack?.baseUrl || "");
-const sourceLanguageCode = String(sourceTrack?.languageCode || "");
-const sourceTrackId = String(sourceTrack?.vssId || "");
-return translationLanguages.map(lang => ({
-name: lang.languageName?.simpleText || lang.languageCode,
-languageCode: lang.languageCode,
-sourceLanguageCode: sourceLanguageCode || "",
-baseUrl: sourceBaseUrl,
-url: buildSubtitleUrl(sourceBaseUrl),
-isAutoGenerated: "asr" === sourceTrack?.kind,
-trackId: sourceTrackId,
-translateTo: lang.languageCode
-}));
-}
-async function getSubtitles(videoId) {
-try {
-let data = null;
-try {
-data = await fetchPlayerData(videoId);
-} catch (error) {
-logger.warn("Primary subtitle API request failed, trying page fallback:", error);
-}
-let fallback = (function getCaptionsFromPageFallback() {
-try {
-const title = getVideoTitle();
-const globalContext = _pageGlobal();
-const initial = globalContext.ytInitialPlayerResponse;
-const initialCaps = initial?.captions?.playerCaptionsTracklistRenderer;
-if (initialCaps) {
-return {
-captions: initialCaps,
-videoTitle: initial?.videoDetails?.title || title
-};
-}
-const playerEl = window.YouTubeUtils?.byId?.("movie_player") || document.getElementById("movie_player");
-const player = playerEl instanceof HTMLElement ? playerEl : null;
-const response = "function" == typeof player?.getPlayerResponse && player.getPlayerResponse() || null;
-const respCaps = response?.captions?.playerCaptionsTracklistRenderer;
-if (respCaps) {
-return {
-captions: respCaps,
-videoTitle: response?.videoDetails?.title || title
-};
-}
-const ytPlayerResponse = globalContext?.ytplayer?.config?.args?.player_response;
-if ("string" == typeof ytPlayerResponse && ytPlayerResponse.length > 0) {
-try {
-const parsed = JSON.parse(ytPlayerResponse);
-const parsedCaps = parsed?.captions?.playerCaptionsTracklistRenderer;
-if (parsedCaps) {
-return {
-captions: parsedCaps,
-videoTitle: parsed?.videoDetails?.title || title
-};
-}
-} catch (e) {}
-}
-} catch (error) {
-logger.warn("Subtitle fallback extraction failed:", error);
-}
-return null;
-})();
-if (!fallback) {
-const parsedFromHtml = await fetchPlayerResponseFromWatchHtml(videoId);
-parsedFromHtml?.captions?.playerCaptionsTracklistRenderer && (fallback = {
-captions: parsedFromHtml.captions.playerCaptionsTracklistRenderer,
-videoTitle: parsedFromHtml?.videoDetails?.title || getVideoTitle()
-});
-}
-const videoTitle = data?.videoDetails?.title || fallback?.videoTitle || "video";
-const captions = data?.captions?.playerCaptionsTracklistRenderer || fallback?.captions || null;
-if (!captions) {
-return (function createEmptySubtitleResult(videoId, videoTitle) {
-return {
-videoId,
-videoTitle,
-subtitles: [],
-autoTransSubtitles: []
-};
-})(videoId, videoTitle);
-}
-const captionTracks = captions.captionTracks || [];
-const translationLanguages = captions.translationLanguages || [];
-const translationSourceTrack = (function getTranslationSourceTrack(captionTracks) {
-return findBestCaptionTrack(captionTracks, {
-isAutoGenerated: !0
-}) || findBestCaptionTrack(captionTracks) || null;
-})(captionTracks);
-return {
-videoId,
-videoTitle,
-subtitles: parseCaptionTracks(captionTracks),
-autoTransSubtitles: parseTranslationLanguages(translationLanguages, translationSourceTrack)
-};
-} catch (error) {
-logger.error("Error getting subtitles:", error);
-return null;
-}
-}
-function parseSubtitleXML(xml) {
-const cues = [];
-const normalizedXml = String(xml || "").replace(/\uFEFF/g, "");
-const domParser = "function" == typeof window.DOMParser ? new window.DOMParser : null;
-if (domParser) {
-try {
-const doc = domParser.parseFromString(normalizedXml, "text/xml");
-const rootName = doc.documentElement?.nodeName?.toLowerCase?.() || "";
-const hasParserError = "parsererror" === rootName || doc.getElementsByTagName("parsererror").length > 0;
-if (!hasParserError) {
-const nodes = Array.from(doc.getElementsByTagName("text"));
-nodes.forEach(node => {
-const start = parseFloat(node.getAttribute("start") || "0");
-const duration = parseFloat(node.getAttribute("dur") || "0");
-const text = decodeHTMLEntities(String(node.textContent || "").trim());
-text && cues.push({
-start,
-duration,
-text
-});
-});
-}
-} catch (e) {}
-}
-if (cues.length > 0) {
-return cues;
-}
-const textTagRegex = /<text\b([^>]*)>([\s\S]*?)<\/text>/gi;
-let match;
-for (;null !== (match = textTagRegex.exec(normalizedXml)); ) {
-const attrs = match[1] || "";
-const startRaw = /\bstart\s*=\s*["']([^"']+)["']/i.exec(attrs)?.[1] || "0";
-const durRaw = /\bdur\s*=\s*["']([^"']+)["']/i.exec(attrs)?.[1] || "0";
-const start = parseFloat(startRaw || "0");
-const duration = parseFloat(durRaw || "0");
-let text = match[2] || "";
-text = text.replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1");
-text = decodeHTMLEntities(text.replace(/<br\s*\/?>/gi, " ").trim());
-text = text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-text && cues.push({
-start,
-duration,
-text
-});
-}
-const pTagRegex = /<p\b([^>]*)>([\s\S]{0,20000}?)<\/p>/gi;
-for (;null !== (match = pTagRegex.exec(normalizedXml)); ) {
-const attrs = match[1] || "";
-const inner = match[2] || "";
-const tMsRaw = /\bt="([^"]+)"/i.exec(attrs)?.[1] || "0";
-const dMsRaw = /\bd="([^"]+)"/i.exec(attrs)?.[1] || "0";
-const start = Math.max(0, Number(tMsRaw) / 1e3);
-const duration = Math.max(0, Number(dMsRaw) / 1e3);
-const assembled = inner.includes("<s") ? inner.replace(/<s\b[^>]*>/gi, "").replace(/<\/s>/gi, "").replace(/<br\s*\/?>/gi, " ") : inner;
-const text = decodeHTMLEntities(assembled.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim());
-text && cues.push({
-start,
-duration: duration > 0 ? duration : 2,
-text
-});
-}
-return cues;
-}
-const _htmlEntityMap = {
-amp: "&",
-lt: "<",
-gt: ">",
-quot: '"',
-"#39": "'",
-apos: "'",
-nbsp: " "
-};
-function decodeHTMLEntities(text) {
-return text.replace(/&(#x?[0-9A-Fa-f]+|[a-zA-Z]+);/g, (match, entity) => {
-if (_htmlEntityMap[entity]) {
-return _htmlEntityMap[entity];
-}
-if (entity.startsWith("#") && !entity.startsWith("#x")) {
-const num = parseInt(entity.slice(1), 10);
-return num > 0 && num < 1114111 ? String.fromCharCode(num) : match;
-}
-if (entity.startsWith("#x")) {
-const num = parseInt(entity.slice(2), 16);
-return num > 0 && num < 1114111 ? String.fromCharCode(num) : match;
-}
-return match;
-});
-}
-function formatSRTTime(seconds) {
-const hours = Math.floor(seconds / 3600);
-const minutes = Math.floor(seconds % 3600 / 60);
-const secs = Math.floor(seconds % 60);
-const milliseconds = Math.floor(seconds % 1 * 1e3);
-return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")},${String(milliseconds).padStart(3, "0")}`;
-}
-function parseSubtitleJSON3(jsonText) {
-try {
-const data = JSON.parse(jsonText);
-const events = Array.isArray(data?.events) ? data.events : [];
-const cues = [];
-events.forEach(event => {
-const segs = Array.isArray(event?.segs) ? event.segs : [];
-const text = segs.map(seg => String(seg?.utf8 || "")).join("").replace(/\s+/g, " ").trim();
-if (!text) {
-return;
-}
-const start = Number(event?.tStartMs || 0) / 1e3;
-const duration = Math.max(0, Number(event?.dDurationMs || 0) / 1e3);
-cues.push({
-start,
-duration,
-text
-});
-});
-return cues;
-} catch (e) {
-return [];
-}
-}
-function parseSubtitleVTT(vttText) {
-const cues = [];
-const blocks = String(vttText || "").replace(/\r/g, "").split(/\n\n+/);
-const parseClockTime = value => {
-const raw = String(value || "").trim();
-if (!raw) {
-return 0;
-}
-const parts = raw.split(":");
-if (2 !== parts.length && 3 !== parts.length) {
-return 0;
-}
-if (!parts.every(part => {
-if (!part) {
-return !1;
-}
-let dotSeen = !1;
-for (let i = 0; i < part.length; i += 1) {
-const ch = part[i];
-if (!(ch >= "0" && ch <= "9")) {
-if ("." !== ch || dotSeen) {
-return !1;
-}
-dotSeen = !0;
-}
-}
-return !0;
-})) {
-return 0;
-}
-let h = 0;
-let m = 0;
-let secPart = "";
-if (2 === parts.length) {
-m = Number(parts[0]);
-secPart = parts[1];
-} else {
-h = Number(parts[0]);
-m = Number(parts[1]);
-secPart = parts[2];
-}
-const dot = secPart.indexOf(".");
-const sec = Number(dot >= 0 ? secPart.slice(0, dot) : secPart);
-const frac = dot >= 0 ? secPart.slice(dot + 1) : "";
-const ms = frac ? Number(frac.padEnd(3, "0").slice(0, 3)) : 0;
-return Number.isFinite(h) && Number.isFinite(m) && Number.isFinite(sec) && Number.isFinite(ms) ? 3600 * h + 60 * m + sec + ms / 1e3 : 0;
-};
-blocks.forEach(block => {
-const lines = block.split("\n").map(line => line.trim()).filter(Boolean);
-if (0 === lines.length) {
-return;
-}
-if ("WEBVTT" === lines[0]) {
-return;
-}
-const timeIndex = lines.findIndex(line => line.includes("--\x3e"));
-if (timeIndex < 0) {
-return;
-}
-const range = lines[timeIndex].split("--\x3e");
-if (range.length < 2) {
-return;
-}
-const start = parseClockTime(range[0]);
-const end = parseClockTime(range[1].split(" ")[0]);
-const duration = Math.max(0, end - start);
-const text = lines.slice(timeIndex + 1).join(" ").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
-text && cues.push({
-start,
-duration,
-text
-});
-});
-return cues;
-}
-function parseSubtitleTTML(ttmlText) {
-const cues = [];
-const normalizedTtml = String(ttmlText || "").replace(/\uFEFF/g, "");
-const pTagRegex = /<p\b([^>]*)>([\s\S]{0,20000}?)<\/p>/gi;
-const parseTtmlTime = value => {
-const v = String(value || "").trim();
-if (!v) {
-return 0;
-}
-const last = v[v.length - 1];
-if ("s" === last || "S" === last) {
-const n = Number(v.slice(0, -1));
-return Number.isFinite(n) ? n : 0;
-}
-const parts = v.split(":");
-if (2 !== parts.length && 3 !== parts.length) {
-return 0;
-}
-if (!parts.every(part => {
-if (!part) {
-return !1;
-}
-let dotSeen = !1;
-for (let i = 0; i < part.length; i += 1) {
-const ch = part[i];
-if (!(ch >= "0" && ch <= "9")) {
-if ("." !== ch || dotSeen) {
-return !1;
-}
-dotSeen = !0;
-}
-}
-return !0;
-})) {
-return 0;
-}
-let h = 0;
-let m = 0;
-let secPart = "";
-if (2 === parts.length) {
-m = Number(parts[0]);
-secPart = parts[1];
-} else {
-h = Number(parts[0]);
-m = Number(parts[1]);
-secPart = parts[2];
-}
-const dot = secPart.indexOf(".");
-const s = Number(dot >= 0 ? secPart.slice(0, dot) : secPart);
-const frac = dot >= 0 ? secPart.slice(dot + 1) : "";
-const ms = frac ? Number(frac.padEnd(3, "0").slice(0, 3)) : 0;
-return Number.isFinite(h) && Number.isFinite(m) && Number.isFinite(s) && Number.isFinite(ms) ? 3600 * h + 60 * m + s + ms / 1e3 : 0;
-};
-const domParser = "function" == typeof window.DOMParser ? new window.DOMParser : null;
-if (domParser) {
-try {
-const doc = domParser.parseFromString(normalizedTtml, "text/xml");
-const rootName = doc.documentElement?.nodeName?.toLowerCase?.() || "";
-const hasParserError = "parsererror" === rootName || doc.getElementsByTagName("parsererror").length > 0;
-if (!hasParserError) {
-const nodes = Array.from(doc.getElementsByTagName("p"));
-nodes.forEach(node => {
-const start = parseTtmlTime(node.getAttribute("begin") || node.getAttribute("start") || "");
-const end = parseTtmlTime(node.getAttribute("end") || "");
-const dur = parseTtmlTime(node.getAttribute("dur") || "");
-const duration = dur || Math.max(0, end - start);
-const text = decodeHTMLEntities(String(node.textContent || "").replace(/\s+/g, " ").trim());
-text && cues.push({
-start,
-duration,
-text
-});
-});
-}
-} catch (e) {}
-}
-if (cues.length > 0) {
-return cues;
-}
-let match;
-for (;null !== (match = pTagRegex.exec(normalizedTtml)); ) {
-const attrs = match[1] || "";
-const inner = match[2] || "";
-const begin = /\bbegin\s*=\s*["']([^"']+)["']/i.exec(attrs)?.[1] || "";
-const end = /\bend\s*=\s*["']([^"']+)["']/i.exec(attrs)?.[1] || "";
-const dur = /\bdur\s*=\s*["']([^"']+)["']/i.exec(attrs)?.[1] || "";
-const start = parseTtmlTime(begin);
-let duration = 0;
-dur ? duration = parseTtmlTime(dur) : end && (duration = Math.max(0, parseTtmlTime(end) - start));
-const text = decodeHTMLEntities(inner.replace(/<br\s*\/?\s*>/gi, " ").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim());
-text && cues.push({
-start,
-duration,
-text
-});
-}
-return cues;
-}
-function convertToXML(cues) {
-const body = cues.map(cue => {
-const start = Number(cue?.start || 0);
-const duration = Number(cue?.duration || 0);
-const text = (function escapeXML(text) {
-return String(text || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
-})(String(cue?.text || "").trim());
-return `<text start="${start.toFixed(3)}" dur="${duration.toFixed(3)}">${text}</text>`;
-}).join("");
-return `<?xml version="1.0" encoding="utf-8"?><transcript>${body}</transcript>`;
-}
-function setQueryParam(inputUrl, key, value) {
-try {
-const url = new URL(inputUrl);
-url.searchParams.set(key, value);
-return url.toString();
-} catch (e) {
-const encoded = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-const str = String(inputUrl || "");
-const qPos = str.indexOf("?");
-const hashPos = str.indexOf("#");
-const baseEnd = qPos >= 0 ? qPos : hashPos >= 0 ? hashPos : str.length;
-const base = str.slice(0, baseEnd);
-const hash = hashPos >= 0 ? str.slice(hashPos) : "";
-const queryStart = qPos >= 0 ? qPos + 1 : baseEnd;
-const queryEnd = hashPos >= 0 ? hashPos : str.length;
-const rawQuery = str.slice(queryStart, queryEnd);
-const pairs = rawQuery ? rawQuery.split("&").filter(Boolean) : [];
-let replaced = !1;
-for (let i = 0; i < pairs.length; i += 1) {
-const pair = pairs[i];
-const eq = pair.indexOf("=");
-const name = eq >= 0 ? pair.slice(0, eq) : pair;
-if (decodeURIComponent(name) === key) {
-pairs[i] = encoded;
-replaced = !0;
-}
-}
-replaced || pairs.push(encoded);
-return `${base}?${pairs.join("&")}${hash}`;
-}
-}
-function removeQueryParam(inputUrl, key) {
-try {
-const url = new URL(inputUrl);
-url.searchParams.delete(key);
-return url.toString();
-} catch (e) {
-const str = String(inputUrl || "");
-const qPos = str.indexOf("?");
-if (qPos < 0) {
-return str;
-}
-const hashPos = str.indexOf("#");
-const base = str.slice(0, qPos);
-const hash = hashPos >= 0 ? str.slice(hashPos) : "";
-const query = str.slice(qPos + 1, hashPos >= 0 ? hashPos : str.length);
-const nextPairs = query.split("&").filter(Boolean).filter(pair => {
-const eq = pair.indexOf("=");
-const name = eq >= 0 ? pair.slice(0, eq) : pair;
-return decodeURIComponent(name) !== key;
-});
-const nextQuery = nextPairs.join("&");
-return `${base}${nextQuery ? `?${nextQuery}` : ""}${hash}`;
-}
-}
-function normalizeSubtitleCandidates(urls) {
-return Array.from(new Set((urls || []).filter(u => (function isHttpUrl(inputUrl) {
-try {
-const parsed = new URL(String(inputUrl || ""));
-return "http:" === parsed.protocol || "https:" === parsed.protocol;
-} catch (e) {
-return !1;
-}
-})(u))));
-}
-function waitMs(ms) {
-return new Promise(resolve => setTimeout(resolve, Math.max(0, Number(ms) || 0)));
-}
-function buildMinimalRateLimitCandidates(candidates) {
-const preferred = [];
-for (const candidate of normalizeSubtitleCandidates(candidates)) {
-const noFmt = removeQueryParam(candidate, "fmt");
-const noTlang = removeQueryParam(noFmt, "tlang");
-const noAsr = removeQueryParam(noTlang, "kind");
-preferred.push(noAsr);
-preferred.push(noTlang);
-preferred.push(noFmt);
-}
-return normalizeSubtitleCandidates(preferred).slice(0, 3);
-}
-function buildSubtitleCandidates(baseUrl, translateTo) {
-if (!baseUrl) {
-return [];
-}
-let resolved = baseUrl;
-try {
-const url = new URL(resolved);
-url.searchParams.delete("tlang");
-url.searchParams.delete("fmt");
-resolved = url.toString();
-} catch (e) {
-resolved = resolved.replace(/[&?]tlang=[^&]*/g, "").replace(/[&?]fmt=[^&]*/g, "");
-resolved = resolved.replace(/\?&/, "?").replace(/\?$/, "");
-}
-translateTo && (resolved = setQueryParam(resolved, "tlang", translateTo));
-const candidates = [ resolved, setQueryParam(resolved, "fmt", "srv1"), setQueryParam(resolved, "fmt", "json3"), setQueryParam(resolved, "fmt", "srv3"), setQueryParam(resolved, "fmt", "vtt") ];
-return normalizeSubtitleCandidates(candidates);
-}
-function buildDirectSubtitleCandidates(videoId, languageCode, isAutoGenerated, translateTo) {
-if (!videoId || !languageCode) {
-return [];
-}
-const common = new URLSearchParams({
-v: videoId,
-lang: languageCode
-});
-isAutoGenerated && common.set("kind", "asr");
-translateTo && common.set("tlang", translateTo);
-const withFmt = (fmt = "") => {
-const q = new URLSearchParams(common);
-fmt && q.set("fmt", fmt);
-return `https://www.youtube.com/api/timedtext?${q.toString()}`;
-};
-return normalizeSubtitleCandidates([ withFmt(), withFmt("srv1"), withFmt("srv3"), withFmt("json3"), withFmt("vtt") ]);
-}
-function classifySubtitlePayload(raw) {
-const text = String(raw || "").trim();
-if (!text || text.length < 10) {
-return null;
-}
-if (text.includes("<!DOCTYPE") || text.includes("<html") || text.includes("</html>") || /^\s*<!DOCTYPE/i.test(text)) {
-return null;
-}
-if (text.startsWith("{")) {
-const cues = parseSubtitleJSON3(text);
-return cues.length > 0 ? {
-text,
-kind: "json3"
-} : null;
-}
-if (text.includes("WEBVTT") || text.includes("--\x3e")) {
-const cues = parseSubtitleVTT(text);
-return cues.length > 0 ? {
-text,
-kind: "vtt"
-} : null;
-}
-if (text.includes("<transcript") || text.includes("<text")) {
-const cues = parseSubtitleXML(text);
-if (cues.length > 0) {
-return {
-text,
-kind: "xml"
-};
-}
-}
-if (text.includes("<tt") || text.includes("<p ")) {
-const cues = parseSubtitleTTML(text);
-if (cues.length > 0) {
-return {
-text,
-kind: "ttml"
-};
-}
-}
-return text.length > 20 ? {
-text,
-kind: "raw"
-} : null;
-}
-async function fetchSubtitlePayloadViaPageFetch(candidates) {
-try {
-const pageGlobal = _pageGlobal();
-const pageFetch = pageGlobal?.fetch;
-if ("function" != typeof pageFetch) {
-return null;
-}
-for (const candidateUrl of normalizeSubtitleCandidates(candidates)) {
-try {
-const response = await pageFetch(candidateUrl, {
-method: "GET",
-credentials: "include",
-cache: "no-store",
-headers: {
-Accept: "*/*"
-}
-});
-if (!response || !response.ok) {
-continue;
-}
-const raw = await response.text();
-const detected = classifySubtitlePayload(raw);
-if (detected) {
-return detected;
-}
-} catch (e) {}
-}
-} catch (e) {}
-return null;
-}
-async function fetchSubtitlePayload(candidates, options = {}) {
-let firstNonEmpty = null;
-let hadRateLimit = !1;
-const minimalMode = !0 === options.minimalMode;
-const allProfiles = [ {
-method: "GET",
-withCredentials: !0,
-anonymous: !1,
-responseType: "text",
-headers: {
-Referer: "https://www.youtube.com/",
-"Accept-Encoding": "identity",
-"Cache-Control": "no-cache",
-Pragma: "no-cache"
-}
-}, {
-method: "GET",
-withCredentials: !0,
-anonymous: !1,
-headers: {
-Referer: "https://www.youtube.com/",
-"Accept-Encoding": "identity"
-}
-} ];
-const profiles = minimalMode ? allProfiles.slice(0, 1) : allProfiles;
-if (!minimalMode) {
-try {
-const candidateVideoId = (candidates || []).map(_getVideoIdFromCandidate).find(Boolean) || "";
-candidateVideoId && !_potParamsByVideoId.has(candidateVideoId) && await (async function _tryElicitPotForCurrentVideo() {
-if (_potElicitInflight) {
-return !1;
-}
-_potElicitInflight = !0;
-try {
-const pg = _pageGlobal();
-const videoId = (() => {
-try {
-const params = new URLSearchParams(pg.location?.search || "");
-return params.get("v") || "";
-} catch (e) {
-return "";
-}
-})();
-if (!videoId) {
-return !1;
-}
-if (_potParamsByVideoId.has(videoId)) {
-return !0;
-}
-const playerEl = pg.document?.querySelector?.(".html5-video-player");
-if (!playerEl) {
-return !1;
-}
-let priorTrack = null;
-try {
-priorTrack = "function" == typeof playerEl.getOption ? playerEl.getOption("captions", "track") : null;
-} catch (e) {
-priorTrack = null;
-}
-let trackToLoad = null;
-try {
-const list = "function" == typeof playerEl.getOption && playerEl.getOption("captions", "tracklist", {
-includeAsr: !0
-}) || [];
-Array.isArray(list) && list.length && (trackToLoad = list.find(t => t && "ru" === t.languageCode && "asr" === t.kind) || list[0]);
-} catch (e) {
-trackToLoad = null;
-}
-if (trackToLoad && "function" == typeof playerEl.setOption) {
-try {
-playerEl.setOption("captions", "track", trackToLoad);
-} catch (e) {}
-} else {
-try {
-const ccBtn = pg.document?.querySelector?.(".ytp-subtitles-button");
-ccBtn && "true" !== ccBtn.getAttribute("aria-pressed") && ccBtn.click();
-} catch (e) {}
-}
-const deadline = Date.now() + 2200;
-for (;Date.now() < deadline && !_potParamsByVideoId.has(videoId); ) {
-await waitMs(120);
-}
-try {
-if (priorTrack && "function" == typeof playerEl.setOption) {
-playerEl.setOption("captions", "track", priorTrack);
-} else if ("function" == typeof playerEl.toggleSubtitles) {
-const ccBtn = pg.document?.querySelector?.(".ytp-subtitles-button");
-ccBtn && "true" === ccBtn.getAttribute("aria-pressed") && ccBtn.click();
-}
-} catch (e) {}
-return _potParamsByVideoId.has(videoId);
-} catch (e) {
-return !1;
-} finally {
-_potElicitInflight = !1;
-}
-})();
-} catch (e) {}
-}
-const baseNormalized = minimalMode ? buildMinimalRateLimitCandidates(candidates) : normalizeSubtitleCandidates(candidates);
-const normalizedCandidates = minimalMode ? baseNormalized : (function augmentSubtitleCandidatesWithPot(candidates) {
-if (!Array.isArray(candidates) || 0 === candidates.length) {
-return candidates || [];
-}
-const augmented = [];
-for (const candidate of candidates) {
-try {
-const videoId = _getVideoIdFromCandidate(candidate);
-const params = videoId ? _potParamsByVideoId.get(videoId) : null;
-if (!params) {
-continue;
-}
-const u = new URL(candidate, "https://www.youtube.com");
-for (const [k, v] of Object.entries(params)) {
-u.searchParams.set(k, v);
-}
-augmented.push(u.toString());
-} catch (e) {}
-}
-const merged = augmented.concat(candidates);
-return Array.from(new Set(merged.filter(u => "string" == typeof u && u.length > 0)));
-})(baseNormalized);
-if (!minimalMode) {
-try {
-const earlyPageFetched = await fetchSubtitlePayloadViaPageFetch(normalizedCandidates);
-if (earlyPageFetched && "raw" !== earlyPageFetched.kind) {
-return {
-payload: earlyPageFetched,
-hadRateLimit
-};
-}
-earlyPageFetched && !firstNonEmpty && (firstNonEmpty = earlyPageFetched);
-} catch (e) {}
-}
-for (const candidateUrl of normalizedCandidates) {
-for (const profile of profiles) {
-try {
-const response = await gmXmlHttpRequest({
-...profile,
-url: candidateUrl
-});
-const status = Number(response?.status || 0);
-if (429 === status) {
-hadRateLimit = !0;
-await waitMs(350);
-continue;
-}
-if (0 !== status && !(status >= 200 && status < 400)) {
-continue;
-}
-const raw = await extractSubtitleBody(response);
-const detected = classifySubtitlePayload(raw);
-if (detected && "raw" !== detected.kind) {
-return {
-payload: detected,
-hadRateLimit
-};
-}
-!firstNonEmpty && detected && (firstNonEmpty = detected);
-} catch (e) {}
-}
-hadRateLimit && await waitMs(220);
-}
-if (!firstNonEmpty) {
-const pageFetched = await fetchSubtitlePayloadViaPageFetch(normalizedCandidates);
-if (pageFetched) {
-return {
-payload: pageFetched,
-hadRateLimit
-};
-}
-}
-if (!firstNonEmpty && hadRateLimit && !minimalMode) {
-await waitMs(1200);
-return fetchSubtitlePayload(normalizedCandidates, {
-minimalMode: !0
-});
-}
-return {
-payload: firstNonEmpty,
-hadRateLimit
-};
-}
-function triggerBlobDownload(blob, filename, revokeDelayMs = 1500) {
-const blobUrl = URL.createObjectURL(blob);
-const a = document.createElement("a");
-a.href = blobUrl;
-a.download = filename;
-a.style.display = "none";
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-setTimeout_(() => URL.revokeObjectURL(blobUrl), Math.max(500, Number(revokeDelayMs) || 1500));
-}
-async function downloadSubtitle(options = {}) {
-const {videoId, url: baseUrl, languageCode, languageName, isAutoGenerated = !1, format = "srt", translateTo = null, trackId = ""} = options;
-if (!videoId || !baseUrl && !languageCode) {
-throw new Error("Video ID and subtitle source are required");
-}
-const title = getVideoTitle();
-const isFirefox = /firefox/i.test(navigator.userAgent || "");
-const translatedCandidates = [ ...buildSubtitleCandidates(baseUrl, translateTo), ...buildDirectSubtitleCandidates(videoId, languageCode, isAutoGenerated, translateTo) ];
-const sourceCandidates = [ ...buildSubtitleCandidates(baseUrl, null), ...buildDirectSubtitleCandidates(videoId, languageCode, isAutoGenerated, null) ];
-const sourceNoAsrCandidates = [ ...buildSubtitleCandidates(removeQueryParam(String(baseUrl || ""), "tlang"), null), ...buildDirectSubtitleCandidates(videoId, languageCode, !1, null) ];
-const primaryCandidates = translateTo ? translatedCandidates : sourceCandidates;
-const candidates = isFirefox ? buildMinimalRateLimitCandidates(translateTo ? [ ...primaryCandidates ] : [ ...sourceNoAsrCandidates, ...sourceCandidates ]) : primaryCandidates;
-NotificationManager.show(t("subtitleDownloading"), {
-duration: 2e3,
-type: "info"
-});
-let sawRateLimit = !1;
-try {
-let {payload, hadRateLimit} = await fetchSubtitlePayload(candidates, {
-minimalMode: isFirefox
-});
-sawRateLimit = sawRateLimit || hadRateLimit;
-!payload && hadRateLimit && await waitMs(900);
-if (!payload && isAutoGenerated && !translateTo) {
-const langOnlyAttempt = await fetchSubtitlePayload(sourceNoAsrCandidates);
-payload = langOnlyAttempt.payload;
-hadRateLimit = hadRateLimit || langOnlyAttempt.hadRateLimit;
-sawRateLimit = sawRateLimit || langOnlyAttempt.hadRateLimit;
-}
-if (!payload && hadRateLimit) {
-const rateLimitCandidates = buildMinimalRateLimitCandidates(translateTo ? [ ...translatedCandidates ] : [ ...sourceNoAsrCandidates, ...sourceCandidates ]);
-const finalAttempt = await fetchSubtitlePayload(rateLimitCandidates, {
-minimalMode: !0
-});
-payload = finalAttempt.payload;
-sawRateLimit = sawRateLimit || finalAttempt.hadRateLimit;
-}
-if (!payload) {
-try {
-const freshPlayerResponse = await fetchPlayerResponseFromWatchHtml(videoId);
-const freshTracks = freshPlayerResponse?.captions?.playerCaptionsTracklistRenderer?.captionTracks || [];
-const freshTrack = findBestCaptionTrack(freshTracks, {
-languageCode,
-isAutoGenerated,
-baseUrl,
-trackId
-});
-if (freshTrack?.baseUrl) {
-const freshBase = normalizeSubtitleBaseUrl(freshTrack.baseUrl);
-const freshCandidates = translateTo ? [ ...buildSubtitleCandidates(freshBase, translateTo), ...buildDirectSubtitleCandidates(videoId, languageCode, isAutoGenerated, translateTo) ] : [ ...buildSubtitleCandidates(freshBase, null), ...buildDirectSubtitleCandidates(videoId, languageCode, isAutoGenerated, null), ...buildDirectSubtitleCandidates(videoId, languageCode, !1, null) ];
-const freshAttempt = await fetchSubtitlePayload(freshCandidates);
-payload = freshAttempt.payload;
-sawRateLimit = sawRateLimit || freshAttempt.hadRateLimit;
-}
-} catch (e) {}
-}
-if (!payload) {
-if (translateTo) {
-throw new Error("Translated subtitle track is unavailable for this video/language");
-}
-throw new Error("Empty subtitle response");
-}
-const subtitleText = payload.text;
-const subtitleKind = payload.kind;
-let cues = [];
-if ("xml" === subtitleKind) {
-cues = parseSubtitleXML(subtitleText);
-} else if ("json3" === subtitleKind) {
-cues = parseSubtitleJSON3(subtitleText);
-} else if ("vtt" === subtitleKind) {
-cues = parseSubtitleVTT(subtitleText);
-} else if ("ttml" === subtitleKind) {
-cues = parseSubtitleTTML(subtitleText);
-} else {
-cues = parseSubtitleXML(subtitleText);
-0 === cues.length && (cues = parseSubtitleJSON3(subtitleText));
-0 === cues.length && (cues = parseSubtitleVTT(subtitleText));
-0 === cues.length && (cues = parseSubtitleTTML(subtitleText));
-}
-let content;
-let extension;
-if ("xml" === format) {
-content = "xml" === subtitleKind ? subtitleText : convertToXML(cues);
-extension = "xml";
-} else {
-if (0 === cues.length) {
-throw new Error("No subtitle cues found");
-}
-if ("srt" === format) {
-content = (function convertToSRT(cues) {
-let srt = "";
-cues.forEach((cue, index) => {
-const startTime = formatSRTTime(cue.start);
-const endTime = formatSRTTime(cue.start + cue.duration);
-const text = cue.text.replace(/\n/g, " ").trim();
-srt += `${index + 1}\n`;
-srt += `${startTime} --\x3e ${endTime}\n`;
-srt += `${text}\n\n`;
-});
-return srt;
-})(cues);
-extension = "srt";
-} else if ("txt" === format) {
-content = (function convertToTXT(cues) {
-return cues.map(cue => cue.text.trim()).join("\n");
-})(cues);
-extension = "txt";
-} else {
-content = "xml" === subtitleKind ? subtitleText : convertToXML(cues);
-extension = "xml";
-}
-}
-const langSuffix = translateTo ? `${languageCode}-${translateTo}` : languageCode;
-const filename = sanitizeFilename(`${title} - ${languageName} (${langSuffix}).${extension}`);
-const blob = new Blob([ content ], {
-type: "text/plain;charset=utf-8"
-});
-triggerBlobDownload(blob, filename);
-NotificationManager.show(t("subtitleDownloaded"), {
-duration: 3e3,
-type: "success"
-});
-logger.debug("Subtitle downloaded:", filename);
-} catch (error) {
-sawRateLimit && "Empty subtitle response" === String(error?.message || "") && (error.message = "YouTube temporarily limited subtitle requests (HTTP 429). Please retry in 20-60 seconds.");
-logger.error("Error downloading subtitle:", error);
-NotificationManager.show(`${t("subtitleDownloadFailed")} ${error.message}`, {
-duration: 5e3,
-type: "error"
-});
-throw error;
-}
-}
-async function downloadVideo(options = {}) {
-const {format = DownloadConfig.DEFAULTS.format, quality = DownloadConfig.DEFAULTS.videoQuality, audioBitrate = DownloadConfig.DEFAULTS.audioBitrate, embedThumbnail = DownloadConfig.DEFAULTS.embedThumbnail, onProgress = null} = options;
-const videoId = getVideoId();
-if (!videoId) {
-throw new Error("Video ID not found");
-}
-const videoUrl = getVideoUrl();
-const title = getVideoTitle();
-NotificationManager.show(t("startingDownload"), {
-duration: 2e3,
-type: "info"
-});
-try {
-logger.debug("Fetching API key...");
-const keyResponse = await gmXmlHttpRequest({
-method: "GET",
-url: DownloadConfig.API.KEY_URL,
-headers: DownloadConfig.HEADERS
-});
-if (200 !== keyResponse.status) {
-throw new Error(`Failed to get API key: ${keyResponse.status}`);
-}
-const keyData = JSON.parse(keyResponse.responseText);
-if (!keyData || !keyData.key) {
-throw new Error("API key not found in response");
-}
-const {key} = keyData;
-logger.debug("API key obtained");
-let payload;
-if ("video" === format) {
-const codec = parseInt(quality, 10) > 1080 ? "vp9" : "h264";
-payload = {
-link: videoUrl,
-format: "mp4",
-audioBitrate: "128",
-videoQuality: quality,
-filenameStyle: "pretty",
-vCodec: codec
-};
-} else {
-payload = {
-link: videoUrl,
-format: "mp3",
-audioBitrate,
-filenameStyle: "pretty"
-};
-}
-logger.debug("Requesting conversion...", {
-format: payload?.format,
-videoQuality: payload?.videoQuality,
-audioBitrate: payload?.audioBitrate
-});
-const customHeaders = {
-...DownloadConfig.HEADERS,
-key
-};
-const downloadResponse = await gmXmlHttpRequest({
-method: "POST",
-url: DownloadConfig.API.CONVERT_URL,
-headers: customHeaders,
-data: JSON.stringify(payload)
-});
-if (200 !== downloadResponse.status) {
-throw new Error(`Conversion failed: ${downloadResponse.status}`);
-}
-const apiDownloadInfo = JSON.parse(downloadResponse.responseText);
-logger.debug("Conversion response received");
-if (!apiDownloadInfo.url) {
-throw new Error("No download URL received from API");
-}
-logger.debug("Downloading file from:", (function sanitizeUrlForLog(rawUrl) {
-try {
-if (!rawUrl || "string" != typeof rawUrl) {
-return "";
-}
-const u = new URL(rawUrl, window.location.origin || "https://www.youtube.com");
-const sensitiveParams = [ "v", "videoId", "pot", "potc", "key", "token", "sig", "signature", "oauth", "authorization", "cookie" ];
-for (const name of sensitiveParams) {
-u.searchParams.has(name) && u.searchParams.set(name, "<redacted>");
-}
-return `${u.origin}${u.pathname}`;
-} catch (e) {
-return "<redacted-url>";
-}
-})(String(apiDownloadInfo.url || "")));
-return new Promise((resolve, reject) => {
-if ("undefined" != typeof GM_xmlhttpRequest) {
-GM_xmlhttpRequest({
-method: "GET",
-url: apiDownloadInfo.url,
-responseType: "blob",
-headers: {
-"User-Agent": DownloadConfig.HEADERS["User-Agent"],
-Referer: "https://mp3yt.is/",
-Accept: "*/*"
-},
-onprogress: progress => {
-onProgress && onProgress({
-loaded: progress.loaded,
-total: progress.total,
-percent: progress.total ? Math.round(progress.loaded / progress.total * 100) : 0
-});
-},
-onload: async response => {
-if (200 === response.status && response.response) {
-let blob = response.response;
-if (0 === blob.size) {
-reject(new Error(t("zeroBytesError")));
-return;
-}
-window.YouTubeUtils && YouTubeUtils.logger?.debug && YouTubeUtils.logger.debug(`[Download] File downloaded: ${formatBytes(blob.size)}`);
-if ("audio" === format && embedThumbnail) {
-try {
-logger.debug("Embedding album art...");
-const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-const albumArt = await (function createSquareAlbumArt(thumbnailUrl) {
-return new Promise((resolve, reject) => {
-const img = document.createElement("img");
-img.crossOrigin = "anonymous";
-img.onload = () => {
-const canvas = document.createElement("canvas");
-const size = Math.min(img.width, img.height);
-canvas.width = size;
-canvas.height = size;
-const ctx = canvas.getContext("2d");
-if (!ctx) {
-canvas.width = 0;
-canvas.height = 0;
-reject(new Error("Failed to get canvas context"));
-return;
-}
-const sx = (img.width - size) / 2;
-const sy = (img.height - size) / 2;
-ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
-canvas.toBlob(blob => {
-canvas.width = 0;
-canvas.height = 0;
-blob ? resolve(blob) : reject(new Error("Failed to create blob"));
-}, "image/jpeg", .95);
-};
-img.onerror = () => reject(new Error("Failed to load thumbnail"));
-img.src = thumbnailUrl;
-});
-})(thumbnailUrl);
-blob = await (async function embedAlbumArtToMP3(mp3Blob, albumArtBlob, metadata) {
-try {
-if (void 0 === window.ID3Writer) {
-logger.warn("ID3Writer not available, skipping album art embedding");
-return mp3Blob;
-}
-const arrayBuffer = await mp3Blob.arrayBuffer();
-const writer = new window.ID3Writer(arrayBuffer);
-metadata.title && writer.setFrame("TIT2", metadata.title);
-metadata.artist && writer.setFrame("TPE1", [ metadata.artist ]);
-metadata.album && writer.setFrame("TALB", metadata.album);
-if (albumArtBlob) {
-const coverArrayBuffer = await albumArtBlob.arrayBuffer();
-writer.setFrame("APIC", {
-type: 3,
-data: coverArrayBuffer,
-description: "Cover"
-});
-}
-writer.addTag();
-return new Blob([ writer.arrayBuffer ], {
-type: "audio/mpeg"
-});
-} catch (error) {
-logger.error("Error embedding album art:", error);
-return mp3Blob;
-}
-})(blob, albumArt, {
-title
-});
-logger.debug("Album art embedded successfully");
-} catch (error) {
-logger.error("Failed to embed album art:", error);
-}
-}
-const filename = apiDownloadInfo.filename || `${title}.${"video" === format ? "mp4" : "mp3"}`;
-triggerBlobDownload(blob, sanitizeFilename(filename), 2e3);
-NotificationManager.show(t("downloadCompleted"), {
-duration: 3e3,
-type: "success"
-});
-logger.debug("Download completed:", filename);
-resolve();
-} else {
-reject(new Error(`Download failed: ${response.status}`));
-}
-},
-onerror: () => reject(new Error("Download failed - network error")),
-ontimeout: () => reject(new Error("Download timeout"))
-});
-} else {
-logger.warn("GM_xmlhttpRequest not available, opening in new tab");
-window.open(apiDownloadInfo.url, "_blank");
-resolve();
-}
-});
-} catch (error) {
-logger.error("Error:", error);
-NotificationManager.show(`${t("downloadFailed")} ${error.message}`, {
-duration: 5e3,
-type: "error"
-});
-throw error;
-}
-}
-let _modalElements = null;
-function buildModalForm() {
-const qualitySelect = document.createElement("div");
-qualitySelect.role = "radiogroup";
-qualitySelect.value = DownloadConfig.DEFAULTS.videoQuality;
-Object.assign(qualitySelect.style || {}, {
-display: "flex",
-flexWrap: "wrap",
-gap: "10px",
-padding: "12px 6px",
-borderRadius: "10px",
-width: "100%",
-alignItems: "center",
-justifyContent: "center",
-background: "transparent"
-});
-const embedCheckbox = document.createElement("input");
-embedCheckbox.type = "checkbox";
-embedCheckbox.checked = DownloadConfig.DEFAULTS.embedThumbnail;
-const embedLabel = document.createElement("label");
-embedLabel.style.fontSize = "13px";
-embedLabel.style.display = "flex";
-embedLabel.style.alignItems = "center";
-embedLabel.style.gap = "6px";
-embedLabel.style.color = "var(--yt-text-primary)";
-embedLabel.style.display = "none";
-embedLabel.appendChild(embedCheckbox);
-embedLabel.appendChild(document.createTextNode(t("embedThumbnail")));
-const subtitleWrapper = document.createElement("div");
-subtitleWrapper.style.display = "none";
-const subtitleSelect = (function createSubtitleSelect() {
-const subtitleSelect = document.createElement("div");
-subtitleSelect.setAttribute("role", "listbox");
-subtitleSelect.setAttribute("aria-expanded", "false");
-subtitleSelect.setAttribute("aria-label", "Subtitle language");
-subtitleSelect.setAttribute("tabindex", "0");
-Object.assign(subtitleSelect.style || {}, {
-position: "relative",
-width: "100%",
-marginBottom: "8px",
-fontSize: "14px",
-color: "var(--yt-text-primary)",
-cursor: "pointer"
-});
-const _ssDisplay = document.createElement("div");
-Object.assign(_ssDisplay.style || {}, {
-padding: "10px 12px",
-borderRadius: "10px",
-background: "linear-gradient(135deg, var(--yt-glass-bg), var(--yt-surface-overlay-faint))",
-border: "1px solid var(--yt-glass-border)",
-display: "flex",
-alignItems: "center",
-justifyContent: "space-between",
-gap: "8px",
-backdropFilter: "blur(6px)",
-boxShadow: "0 4px 18px var(--yt-shadow-inset-strong) inset"
-});
-const _ssLabel = document.createElement("div");
-if (_ssLabel.style) {
-_ssLabel.style.flex = "1";
-_ssLabel.style.overflow = "hidden";
-_ssLabel.style.textOverflow = "ellipsis";
-_ssLabel.style.whiteSpace = "nowrap";
-}
-_ssLabel.textContent = t("loading");
-const _ssChevron = document.createElement("div");
-_ssChevron.textContent = "▾";
-_ssChevron.style && (_ssChevron.style.opacity = "0.8");
-_ssDisplay.appendChild(_ssLabel);
-_ssDisplay.appendChild(_ssChevron);
-const _ssList = document.createElement("div");
-Object.assign(_ssList.style || {}, {
-position: "absolute",
-top: "calc(100% + 8px)",
-left: "0",
-right: "0",
-maxHeight: "220px",
-overflowY: "auto",
-borderRadius: "10px",
-background: "linear-gradient(180deg, var(--yt-glass-bg), var(--yt-surface-overlay-faint))",
-border: "1px solid var(--yt-glass-border)",
-boxShadow: "0 8px 30px var(--yt-shadow-flyout)",
-backdropFilter: "blur(8px)",
-zIndex: "9999",
-display: "none"
-});
-subtitleSelect.appendChild(_ssDisplay);
-subtitleSelect.appendChild(_ssList);
-_ssList.addEventListener("click", e => {
-const target = e.target;
-if (!(target instanceof HTMLElement)) {
-return;
-}
-const item = target.closest("[data-value]");
-if (item && _ssList.contains(item)) {
-subtitleSelect.value = item.dataset?.value || "";
-_ssList.style && (_ssList.style.display = "none");
-}
-});
-_ssList.addEventListener("mouseover", e => {
-const target = e.target;
-if (!(target instanceof HTMLElement)) {
-return;
-}
-const item = target.closest("[data-value]");
-item && _ssList.contains(item) && item.style && (item.style.background = "var(--yt-surface-overlay-faint)");
-});
-_ssList.addEventListener("mouseout", e => {
-const target = e.target;
-if (!(target instanceof HTMLElement)) {
-return;
-}
-const item = target.closest("[data-value]");
-if (!item || !_ssList.contains(item)) {
-return;
-}
-const related = e.relatedTarget;
-related && item.contains(related) || item.style && (item.style.background = "transparent");
-});
-subtitleSelect._options = [];
-subtitleSelect._value = "";
-subtitleSelect._disabled = !1;
-subtitleSelect.setPlaceholder = text => {
-_ssLabel.textContent = text || "";
-subtitleSelect._options = [];
-_ssList.replaceChildren();
-subtitleSelect._value = "";
-};
-subtitleSelect.setOptions = options => {
-subtitleSelect._options = options || [];
-_ssList.replaceChildren();
-subtitleSelect._options.forEach(opt => {
-const item = document.createElement("div");
-item.textContent = opt.text;
-item.dataset.value = String(opt.value);
-Object.assign(item.style || {}, {
-padding: "10px 12px",
-cursor: "pointer",
-borderBottom: "1px solid var(--yt-surface-overlay-faint)",
-color: "var(--yt-text-primary)"
-});
-_ssList.appendChild(item);
-});
-if (subtitleSelect._options.length > 0) {
-subtitleSelect.value = String(subtitleSelect._options[0].value);
-} else {
-subtitleSelect._value = "";
-_ssLabel.textContent = t("noSubtitles");
-}
-};
-Object.defineProperty(subtitleSelect, "value", {
-get: () => subtitleSelect._value,
-set(v) {
-subtitleSelect._value = String(v);
-const found = subtitleSelect._options.find(o => String(o.value) === subtitleSelect._value);
-_ssLabel.textContent = found ? found.text : "";
-}
-});
-Object.defineProperty(subtitleSelect, "disabled", {
-get: () => subtitleSelect._disabled,
-set(v) {
-subtitleSelect._disabled = !!v;
-_ssDisplay.style && (_ssDisplay.style.opacity = subtitleSelect._disabled ? "0.5" : "1");
-subtitleSelect.style && (subtitleSelect.style.pointerEvents = subtitleSelect._disabled ? "none" : "auto");
-}
-});
-_ssDisplay.addEventListener("click", () => {
-if (subtitleSelect._disabled) {
-return;
-}
-const isOpen = !!_ssList.style && "none" !== _ssList.style.display;
-_ssList.style && (_ssList.style.display = isOpen ? "none" : "");
-subtitleSelect.setAttribute("aria-expanded", isOpen ? "false" : "true");
-});
-subtitleSelect.addEventListener("keydown", e => {
-if (subtitleSelect._disabled) {
-return;
-}
-const isOpen = !!_ssList.style && "none" !== _ssList.style.display;
-if ("Enter" === e.key || " " === e.key) {
-e.preventDefault();
-_ssList.style && (_ssList.style.display = isOpen ? "none" : "");
-subtitleSelect.setAttribute("aria-expanded", isOpen ? "false" : "true");
-} else if ("Escape" === e.key && isOpen) {
-e.preventDefault();
-_ssList.style && (_ssList.style.display = "none");
-subtitleSelect.setAttribute("aria-expanded", "false");
-} else if ("ArrowDown" === e.key || "ArrowUp" === e.key) {
-e.preventDefault();
-if (!isOpen) {
-_ssList.style && (_ssList.style.display = "");
-subtitleSelect.setAttribute("aria-expanded", "true");
-}
-const opts = subtitleSelect._options;
-if (0 === opts.length) {
-return;
-}
-const currentIdx = opts.findIndex(o => String(o.value) === subtitleSelect._value);
-const nextIdx = "ArrowDown" === e.key ? Math.min(currentIdx + 1, opts.length - 1) : Math.max(currentIdx - 1, 0);
-subtitleSelect.value = String(opts[nextIdx].value);
-}
-});
-const _ac = new AbortController;
-document.addEventListener("click", e => {
-const target = e.target;
-if (!(target instanceof Node && subtitleSelect.contains(target))) {
-_ssList.style && (_ssList.style.display = "none");
-subtitleSelect.setAttribute("aria-expanded", "false");
-}
-}, {
-signal: _ac.signal
-});
-subtitleSelect.destroy = () => _ac.abort();
-return subtitleSelect;
-})();
-const formatSelect = document.createElement("div");
-formatSelect.role = "radiogroup";
-formatSelect.value = "srt";
-Object.assign(formatSelect.style || {}, {
-display: "flex",
-gap: "8px",
-padding: "6px 0",
-borderRadius: "6px",
-width: "100%",
-alignItems: "center",
-justifyContent: "center",
-background: "transparent"
-});
-[ "srt", "txt", "xml" ].forEach(fmt => {
-const btn = document.createElement("button");
-btn.type = "button";
-btn.setAttribute("role", "radio");
-btn.setAttribute("aria-checked", "false");
-btn.dataset.value = fmt;
-btn.textContent = fmt.toUpperCase();
-Object.assign(btn.style || {}, {
-padding: "6px 12px",
-borderRadius: "999px",
-border: "1px solid var(--yt-surface-soft)",
-background: "var(--yt-surface-overlay-faint)",
-color: "var(--yt-text-primary)",
-cursor: "pointer",
-fontSize: "13px",
-fontWeight: "600"
-});
-btn.addEventListener("click", () => {
-Array.from(formatSelect.children).forEach(c => {
-c.style.background = "transparent";
-c.style.color = "var(--yt-text-primary)";
-c.style.border = "1px solid var(--yt-surface-soft)";
-c.setAttribute && c.setAttribute("aria-checked", "false");
-});
-btn.style.background = "var(--yt-surface-contrast)";
-btn.style.color = "var(--yt-success-accent)";
-btn.style.border = "1px solid var(--yt-success-accent-soft)";
-btn.setAttribute("aria-checked", "true");
-formatSelect.value = fmt;
-});
-formatSelect.appendChild(btn);
-});
-const _defaultFmtBtn = Array.from(formatSelect.children).find(c => c.dataset?.value === formatSelect.value);
-_defaultFmtBtn && _defaultFmtBtn.click();
-subtitleWrapper.appendChild(subtitleSelect);
-subtitleWrapper.appendChild(formatSelect);
-const cancelBtn = document.createElement("button");
-cancelBtn.type = "button";
-cancelBtn.textContent = t("cancel");
-Object.assign(cancelBtn.style || {}, {
-padding: "8px 16px",
-borderRadius: "8px",
-border: "1px solid var(--yt-surface-active)",
-background: "transparent",
-cursor: "pointer",
-fontSize: "14px",
-color: "var(--yt-text-primary)"
-});
-const downloadBtn = document.createElement("button");
-downloadBtn.type = "button";
-downloadBtn.textContent = t("download");
-Object.assign(downloadBtn.style || {}, {
-padding: "8px 20px",
-borderRadius: "8px",
-border: "1px solid var(--yt-surface-active)",
-background: "transparent",
-color: "var(--yt-text-primary)",
-cursor: "pointer",
-fontSize: "14px",
-fontWeight: "600"
-});
-const progressWrapper = document.createElement("div");
-progressWrapper.style.display = "none";
-progressWrapper.style.marginTop = "12px";
-const progressBar = document.createElement("div");
-Object.assign(progressBar.style || {}, {
-width: "100%",
-height: "3px",
-background: "var(--yt-progress-track)",
-borderRadius: "5px",
-overflow: "hidden",
-marginBottom: "6px"
-});
-const progressFill = document.createElement("div");
-Object.assign(progressFill.style || {}, {
-width: "0%",
-height: "100%",
-background: "var(--yt-progress-fill)",
-transition: "width 200ms linear"
-});
-progressBar.appendChild(progressFill);
-const progressText = document.createElement("div");
-progressText.style.fontSize = "12px";
-progressText.style.color = "var(--yt-muted-text)";
-progressWrapper.appendChild(progressBar);
-progressWrapper.appendChild(progressText);
-return {
-qualitySelect,
-embedLabel,
-subtitleWrapper,
-subtitleSelect,
-formatSelect,
-cancelBtn,
-downloadBtn,
-progressWrapper,
-progressFill,
-progressText
-};
-}
-function enableFormControls(formParts) {
-try {
-formParts.qualitySelect && (formParts.qualitySelect.disabled = !1);
-formParts.downloadBtn && (formParts.downloadBtn.disabled = !1);
-formParts.cancelBtn && (formParts.cancelBtn.disabled = !1);
-if (formParts.downloadBtn) {
-formParts.downloadBtn.style.opacity = "1";
-formParts.downloadBtn.style.cursor = "pointer";
-formParts.downloadBtn.style.pointerEvents = "auto";
-}
-} catch (e) {
-window.console.error("Error enabling form controls:", e);
-}
-}
-function wireModalEvents(formParts, activeFormatGetter, getSubtitlesData) {
-formParts.cancelBtn.addEventListener("click", () => closeModal());
-formParts.downloadBtn.addEventListener("click", async () => {
-if (formParts.downloadBtn.disabled) {
-return;
-}
-!(function disableFormControls(formParts) {
-try {
-formParts.qualitySelect && (formParts.qualitySelect.disabled = !0);
-if (formParts.downloadBtn) {
-formParts.downloadBtn.disabled = !0;
-formParts.downloadBtn.style.opacity = "0.5";
-formParts.downloadBtn.style.cursor = "not-allowed";
-}
-formParts.cancelBtn && (formParts.cancelBtn.disabled = !0);
-} catch (e) {
-window.console.error("Error disabling form controls:", e);
-}
-})(formParts);
-!(function initializeProgress(formParts) {
-formParts.progressWrapper.style.display = "";
-formParts.progressFill.style.width = "0%";
-formParts.progressText.textContent = t("starting");
-})(formParts);
-const format = activeFormatGetter();
-try {
-"subtitle" === format ? await (async function handleSubtitleDownload(formParts, getSubtitlesData) {
-const subtitlesData = getSubtitlesData();
-const selectedIndex = parseInt(formParts.subtitleSelect.value, 10);
-const subtitle = subtitlesData.all[selectedIndex];
-const subtitleFormat = formParts.formatSelect.value;
-if (!subtitle) {
-throw new Error(t("noSubtitleSelected"));
-}
-const videoId = getVideoId() || "";
-const effectiveLanguageCode = subtitle.sourceLanguageCode || subtitle.languageCode;
-const effectiveTranslateTo = subtitle.translateTo || null;
-await downloadSubtitle({
-videoId,
-url: subtitle.baseUrl || subtitle.url,
-languageCode: effectiveLanguageCode,
-languageName: subtitle.name,
-isAutoGenerated: !!subtitle.isAutoGenerated,
-format: subtitleFormat,
-translateTo: effectiveTranslateTo,
-trackId: subtitle.trackId || ""
-});
-})(formParts, getSubtitlesData) : await (async function handleMediaDownload(formParts, format) {
-const opts = {
-format,
-quality: formParts.qualitySelect.value,
-audioBitrate: formParts.qualitySelect.value,
-embedThumbnail: "audio" === format,
-onProgress: p => {
-const loaded = Number(p?.loaded || 0);
-const total = Number(p?.total || 0);
-const hasTotal = Number.isFinite(total) && total > 0;
-let percent = Number(p?.percent || 0);
-if (hasTotal) {
-percent = Math.max(0, Math.min(100, Math.round(loaded / total * 100)));
-formParts.progressFill.style.width = `${percent}%`;
-formParts.progressText.textContent = `${percent}% • ${formatBytes(loaded)} / ${formatBytes(total)}`;
-return;
-}
-const pseudoPercent = Math.min(95, Math.max(5, Math.round(4 * Math.log2(loaded + 1))));
-formParts.progressFill.style.width = `${pseudoPercent}%`;
-formParts.progressText.textContent = `${t("downloading")} • ${formatBytes(loaded)} / —`;
-}
-};
-await downloadVideo(opts);
-})(formParts, format);
-!(function completeDownload(formParts) {
-formParts.progressText.textContent = t("completed");
-setTimeout(() => closeModal(), 800);
-})(formParts);
-} catch (err) {
-window.console.error("[Download Error]:", err);
-!(function handleDownloadError(formParts, err) {
-const errorMsg = err?.message || "Unknown error";
-formParts.progressText.textContent = `${t("downloadFailed")} ${errorMsg}`;
-formParts.progressText.style.color = "var(--yt-danger-text)";
-enableFormControls(formParts);
-setTimeout_(() => {
-try {
-enableFormControls(formParts);
-} catch (e) {
-window.console.error("Failed to re-enable controls:", e);
-}
-}, 500);
-setTimeout_(() => {
-formParts.progressText.style.color = "#fff";
-}, 3e3);
-})(formParts, err);
-} finally {
-setTimeout_(() => {
-formParts.downloadBtn && !formParts.downloadBtn.disabled || enableFormControls(formParts);
-}, 1e3);
-}
-});
-}
-function updateQualityOptionsForForm(formParts, activeFormat, subtitlesData) {
-if ("subtitle" === activeFormat) {
-formParts.qualitySelect.style.display = "none";
-formParts.embedLabel.style.display = "none";
-formParts.subtitleWrapper.style.display = "block";
-!(async function loadSubtitlesForForm(formParts, subtitlesData) {
-const videoId = getVideoId();
-if (videoId) {
-formParts.subtitleSelect.setPlaceholder(t("loading"));
-formParts.subtitleSelect.disabled = !0;
-try {
-const data = await getSubtitles(videoId);
-if (!data) {
-formParts.subtitleSelect.setPlaceholder(t("noSubtitles"));
-return;
-}
-subtitlesData.original = data.subtitles;
-subtitlesData.translated = data.autoTransSubtitles.map(autot => ({
-...autot,
-url: autot.url || (autot.baseUrl ? buildSubtitleUrl(autot.baseUrl) : ""),
-translateTo: autot.languageCode
-}));
-subtitlesData.all = [ ...subtitlesData.original, ...subtitlesData.translated ];
-if (0 === subtitlesData.all.length) {
-formParts.subtitleSelect.setPlaceholder(t("noSubtitles"));
-return;
-}
-const opts = subtitlesData.all.map((sub, idx) => ({
-value: idx,
-text: sub.name + (sub.translateTo ? t("autoTranslateSuffix") : "")
-}));
-formParts.subtitleSelect.setOptions(opts);
-formParts.subtitleSelect.disabled = !1;
-} catch (err) {
-logger.error("Failed to load subtitles:", err);
-formParts.subtitleSelect.setPlaceholder(t("subtitleLoadError"));
-}
-}
-})(formParts, subtitlesData);
-return;
-}
-if ("video" === activeFormat) {
-formParts.qualitySelect.style.display = "flex";
-formParts.embedLabel.style.display = "none";
-formParts.subtitleWrapper.style.display = "none";
-const videoId = getVideoId() || "";
-const renderToken = String(Date.now()) + Math.random().toString(36).slice(2);
-formParts.qualitySelect.dataset.renderToken = renderToken;
-formParts.qualitySelect.replaceChildren();
-const loadingLabel = document.createElement("div");
-loadingLabel.textContent = t("loading");
-Object.assign(loadingLabel.style || {}, {
-fontSize: "13px",
-color: "var(--yt-text-secondary)",
-padding: "8px 0"
-});
-formParts.qualitySelect.appendChild(loadingLabel);
-function makeQualityButton(q) {
-const btn = document.createElement("button");
-btn.type = "button";
-btn.setAttribute("role", "radio");
-btn.setAttribute("aria-checked", "false");
-btn.dataset.value = q;
-btn.textContent = `${q}p`;
-Object.assign(btn.style || {}, {
-display: "inline-flex",
-alignItems: "center",
-gap: "8px",
-padding: "8px 12px",
-borderRadius: "999px",
-border: "1px solid var(--yt-surface-soft)",
-background: "var(--yt-surface-overlay-faint)",
-color: "var(--yt-text-primary)",
-cursor: "pointer",
-fontSize: "13px",
-fontWeight: "600"
-});
-btn.addEventListener("click", () => {
-Array.from(formParts.qualitySelect.children).forEach(c => {
-if (c.dataset && c.dataset.value) {
-c.style.background = "transparent";
-c.style.color = "var(--yt-text-primary)";
-c.style.border = "1px solid var(--yt-surface-soft)";
-c.setAttribute && c.setAttribute("aria-checked", "false");
-}
-});
-btn.style.background = "var(--yt-surface-contrast)";
-btn.style.color = "var(--yt-success-accent)";
-btn.style.border = "1px solid var(--yt-success-accent-soft)";
-btn.setAttribute("aria-checked", "true");
-formParts.qualitySelect.value = q;
-});
-return btn;
-}
-(async function getAvailableVideoQualities(videoId) {
-if (!videoId) {
-return DownloadConfig.VIDEO_QUALITIES.slice();
-}
-try {
-const playerData = await fetchPlayerData(videoId);
-const actualQualities = extractAvailableVideoQualities(playerData);
-if (actualQualities.length > 0) {
-return actualQualities;
-}
-} catch (error) {
-logger.warn("Primary player quality fetch failed:", error);
-}
-try {
-const fallbackPlayerData = await fetchPlayerResponseFromWatchHtml(videoId);
-const fallbackQualities = extractAvailableVideoQualities(fallbackPlayerData);
-if (fallbackQualities.length > 0) {
-return fallbackQualities;
-}
-} catch (error) {
-logger.warn("Watch HTML quality fallback failed:", error);
-}
-return DownloadConfig.VIDEO_QUALITIES.slice();
-})(videoId).then(qualities => {
-if ("video" !== activeFormat) {
-return;
-}
-if (formParts.qualitySelect.dataset.renderToken !== renderToken) {
-return;
-}
-const availableQualities = Array.isArray(qualities) && qualities.length > 0 ? qualities : DownloadConfig.VIDEO_QUALITIES.slice();
-const lowQuals = availableQualities.filter(q => parseInt(q, 10) <= 1080);
-const highQuals = availableQualities.filter(q => parseInt(q, 10) > 1080);
-const previousQuality = String(formParts.qualitySelect.value || "");
-formParts.qualitySelect.replaceChildren();
-lowQuals.forEach(q => formParts.qualitySelect.appendChild(makeQualityButton(q)));
-if (highQuals.length > 0) {
-const labelWrap = document.createElement("div");
-Object.assign(labelWrap.style || {}, {
-display: "flex",
-alignItems: "center",
-gap: "12px",
-width: "100%",
-margin: "8px 0"
-});
-const lineLeft = document.createElement("div");
-lineLeft.style.flex = "1";
-lineLeft.style.borderTop = "1px solid var(--yt-surface-overlay-border)";
-const label = document.createElement("div");
-label.textContent = t("vp9Label");
-Object.assign(label.style || {}, {
-fontSize: "12px",
-color: "var(--yt-text-secondary)",
-padding: "0 8px"
-});
-const lineRight = document.createElement("div");
-lineRight.style.flex = "1";
-lineRight.style.borderTop = "1px solid var(--yt-surface-overlay-border)";
-labelWrap.appendChild(lineLeft);
-labelWrap.appendChild(label);
-labelWrap.appendChild(lineRight);
-formParts.qualitySelect.appendChild(labelWrap);
-highQuals.forEach(q => formParts.qualitySelect.appendChild(makeQualityButton(q)));
-}
-formParts.qualitySelect.value = (function pickDefaultVideoQuality(qualities, preferredQuality) {
-if (!Array.isArray(qualities) || 0 === qualities.length) {
-return preferredQuality || DownloadConfig.DEFAULTS.videoQuality;
-}
-if (qualities.includes(preferredQuality)) {
-return preferredQuality;
-}
-if (qualities.includes(DownloadConfig.DEFAULTS.videoQuality)) {
-return DownloadConfig.DEFAULTS.videoQuality;
-}
-const sorted = qualities.slice().sort((left, right) => Number(left) - Number(right));
-return sorted[sorted.length - 1] || preferredQuality || DownloadConfig.DEFAULTS.videoQuality;
-})(availableQualities, previousQuality);
-const defaultBtn = Array.from(formParts.qualitySelect.children).find(c => c.dataset && c.dataset.value === formParts.qualitySelect.value);
-defaultBtn && defaultBtn.click();
-});
-return;
-}
-formParts.qualitySelect.style.display = "flex";
-formParts.embedLabel.style.display = "flex";
-formParts.subtitleWrapper.style.display = "none";
-formParts.qualitySelect.replaceChildren();
-DownloadConfig.AUDIO_BITRATES.forEach(b => {
-const btn = document.createElement("button");
-btn.type = "button";
-btn.setAttribute("role", "radio");
-btn.setAttribute("aria-checked", "false");
-btn.dataset.value = b;
-btn.textContent = `${b} kbps`;
-Object.assign(btn.style || {}, {
-display: "inline-flex",
-alignItems: "center",
-gap: "8px",
-padding: "8px 12px",
-borderRadius: "999px",
-border: "1px solid var(--yt-surface-soft)",
-background: "var(--yt-surface-overlay-faint)",
-color: "var(--yt-text-primary)",
-cursor: "pointer",
-fontSize: "13px",
-fontWeight: "600"
-});
-btn.addEventListener("click", () => {
-Array.from(formParts.qualitySelect.children).forEach(c => {
-c.style.background = "transparent";
-c.style.color = "var(--yt-text-primary)";
-c.style.border = "1px solid var(--yt-surface-soft)";
-c.setAttribute && c.setAttribute("aria-checked", "false");
-});
-btn.style.background = "var(--yt-surface-contrast)";
-btn.style.color = "var(--yt-success-accent)";
-btn.style.border = "1px solid var(--yt-success-accent-soft)";
-btn.setAttribute("aria-checked", "true");
-formParts.qualitySelect.value = b;
-});
-formParts.qualitySelect.appendChild(btn);
-});
-formParts.qualitySelect.value = DownloadConfig.DEFAULTS.audioBitrate;
-const defaultAudioBtn = Array.from(formParts.qualitySelect.children).find(c => c.dataset.value === formParts.qualitySelect.value);
-defaultAudioBtn && defaultAudioBtn.click();
-formParts.embedLabel.style.display = "none";
-}
-function createModalUI() {
-if (_modalElements) {
-return _modalElements;
-}
-let activeFormat = "video";
-const subtitlesData = {
-all: [],
-original: [],
-translated: []
-};
-const overlay = document.createElement("div");
-Object.assign(overlay.style || {}, {
-position: "fixed",
-inset: "0",
-background: "rgba(0,0,0,0.6)",
-display: "flex",
-alignItems: "center",
-justifyContent: "center",
-zIndex: "999999"
-});
-const box = document.createElement("div");
-Object.assign(box.style || {}, {
-width: "420px",
-maxWidth: "94%",
-background: "var(--yt-modal-surface)",
-color: "var(--yt-text-primary)",
-borderRadius: "12px",
-boxShadow: "0 8px 40px var(--yt-shadow-flyout)",
-fontFamily: "Arial, sans-serif",
-border: "1px solid var(--yt-surface-overlay-border)",
-backdropFilter: "blur(8px)"
-});
-const formParts = buildModalForm();
-const tabContainer = (function createTabButtons(onTabChange) {
-const tabContainer = document.createElement("div");
-tabContainer.setAttribute("role", "tablist");
-Object.assign(tabContainer.style || {}, {
-display: "flex",
-gap: "8px",
-padding: "12px",
-justifyContent: "center",
-alignItems: "center",
-background: "transparent"
-});
-const videoTab = document.createElement("button");
-videoTab.textContent = t("videoTab");
-videoTab.dataset.format = "video";
-const audioTab = document.createElement("button");
-audioTab.textContent = t("audioTab");
-audioTab.dataset.format = "audio";
-const subTab = document.createElement("button");
-subTab.textContent = t("subtitleTab");
-subTab.dataset.format = "subtitle";
-[ videoTab, audioTab, subTab ].forEach(btn => {
-Object.assign(btn.style, {
-flex: "initial",
-padding: "8px 18px",
-border: "1px solid var(--yt-surface-overlay-border)",
-background: "transparent",
-cursor: "pointer",
-fontSize: "13px",
-fontWeight: "600",
-transition: "all 0.18s ease",
-color: "var(--yt-muted-text)",
-borderRadius: "999px"
-});
-btn.type = "button";
-btn.setAttribute("role", "tab");
-btn.setAttribute("aria-selected", "false");
-btn.style.outline = "none";
-btn.style.userSelect = "none";
-});
-function setActive(btn) {
-[ videoTab, audioTab, subTab ].forEach(b => {
-b.style.background = "transparent";
-b.style.color = "var(--yt-muted-text)";
-b.style.border = "1px solid var(--yt-surface-overlay-border)";
-b.style.boxShadow = "none";
-b.setAttribute("aria-selected", "false");
-});
-Object.assign(btn.style, {
-background: "var(--yt-success-accent)",
-color: "var(--yt-text-primary)",
-border: "1px solid var(--yt-shadow-inset-soft)",
-boxShadow: "0 1px 0 var(--yt-shadow-inset-soft) inset"
-});
-btn.setAttribute("aria-selected", "true");
-try {
-onTabChange(btn.dataset.format);
-} catch (e) {}
-}
-[ videoTab, audioTab, subTab ].forEach(btn => {
-btn.addEventListener("click", () => {
-setActive(btn);
-try {
-btn.blur();
-} catch (e) {}
-});
-});
-tabContainer.appendChild(videoTab);
-tabContainer.appendChild(audioTab);
-tabContainer.appendChild(subTab);
-tabContainer.addEventListener("keydown", e => {
-if ("ArrowLeft" !== e.key && "ArrowRight" !== e.key) {
-return;
-}
-const tabs = [ videoTab, audioTab, subTab ];
-const idx = tabs.indexOf(document.activeElement);
-if (idx < 0) {
-return;
-}
-e.preventDefault();
-const next = "ArrowRight" === e.key ? tabs[(idx + 1) % tabs.length] : tabs[(idx - 1 + tabs.length) % tabs.length];
-next.focus();
-next.click();
-});
-setTimeout(() => setActive(videoTab), 0);
-return tabContainer;
-})(format => {
-activeFormat = format;
-updateQualityOptionsForForm(formParts, activeFormat, subtitlesData);
-});
-const content = document.createElement("div");
-content.style.padding = "16px";
-content.appendChild(formParts.qualitySelect);
-content.appendChild(formParts.embedLabel);
-content.appendChild(formParts.subtitleWrapper);
-content.appendChild(formParts.progressWrapper);
-const btnRow = document.createElement("div");
-Object.assign(btnRow.style || {}, {
-display: "flex",
-gap: "8px",
-padding: "16px",
-justifyContent: "center"
-});
-btnRow.appendChild(formParts.cancelBtn);
-btnRow.appendChild(formParts.downloadBtn);
-box.appendChild(tabContainer);
-box.appendChild(content);
-box.appendChild(btnRow);
-overlay.appendChild(box);
-updateQualityOptionsForForm(formParts, activeFormat, subtitlesData);
-wireModalEvents(formParts, () => activeFormat, () => subtitlesData);
-_modalElements = {
-overlay,
-box,
-...formParts
-};
-return _modalElements;
-}
+
+function phStartDownload(format, box) {
+  var videoURL = window.location.href;
+  if (box.dataset.downloading === 'true') return;
+  if (box._phPoll) { clearInterval(box._phPoll); box._phPoll = null; }
+
+  var dlBtn   = box.querySelector('.ph-btn');
+  var retryBtn= box.querySelector('.ph-retry');
+  var prRetry = box.querySelector('.ph-pr-retry');
+  var dlAgain = box.querySelector('.ph-dl-again');
+  var progWrap= box.querySelector('.ph-prog-wrap');
+  var progFill= box.querySelector('.ph-prog-fill');
+  var progTxt = box.querySelector('.ph-prog-txt');
+  var dlTxt   = box.querySelector('.ph-dl-text');
+
+  box.dataset.downloading = 'true';
+  box.dataset.urlOpened   = 'false';
+  box.dataset.lastUrl     = '';
+  dlBtn.style.display     = 'none';
+  retryBtn.style.display  = 'none';
+  if(prRetry) prRetry.style.display = 'block';
+  if(dlAgain) dlAgain.style.display = 'none';
+  progWrap.style.display  = 'flex';
+  progFill.style.width    = '0%';
+  progTxt.textContent     = '0%';
+
+  function setErr() {
+    retryBtn.style.display = 'block';
+    progWrap.style.display = 'none';
+    if(prRetry) prRetry.style.display = 'none';
+    if(dlAgain) dlAgain.style.display = 'none';
+    box.dataset.downloading = 'false';
+    box.dataset.urlOpened = 'false';
+    box.dataset.lastUrl = '';
+  }
+  function markDone(url) {
+    if(!url){ setErr(); return; }
+    box.dataset.lastUrl = String(url);
+    if(box.dataset.urlOpened === 'true') return;
+    box.dataset.urlOpened = 'true';
+    box.classList.add('done'); box.classList.remove('video','audio');
+    dlTxt.textContent = 'Download Complete!';
+    progFill.style.width = '100%'; progTxt.textContent = '100%';
+    if(prRetry) prRetry.style.display = 'none';
+    if(dlAgain) dlAgain.style.display = 'flex';
+    box.dataset.downloading = 'false';
+    try{ window.open(url); } catch(e){}
+  }
+  function pollSN(purl) {
+    box._phPoll = setInterval(function(){
+      phFetchJson(purl, 15000).then(function(d){
+        var p = Math.min((Number(d.progress)||0)/10, 100);
+        progFill.style.width = p+'%'; progTxt.textContent = Math.round(p)+'%';
+        if(Number(d.progress)>=1000 && d.download_url){
+          clearInterval(box._phPoll); box._phPoll = null; markDone(d.download_url);
+        }
+      }).catch(function(){ clearInterval(box._phPoll); box._phPoll = null; setErr(); });
+    }, 3000);
+  }
+  function pollDubs(surl) {
+    box._phPoll = setInterval(function(){
+      phFetchJson(surl, 20000).then(function(st){
+        var p = Math.min((Number(st&&st.progress)||0)/10, 100);
+        progFill.style.width = p+'%'; progTxt.textContent = Math.round(p)+'%';
+        if(st&&st.finished&&st.downloadUrl){
+          clearInterval(box._phPoll); box._phPoll = null; markDone(st.downloadUrl);
+        }
+      }).catch(function(){ clearInterval(box._phPoll); box._phPoll = null; setErr(); });
+    }, 3000);
+  }
+
+  var bases = PH_DL_BASES.slice();
+  function tryNext(i) {
+    if(i >= bases.length) {
+      // fallback dubs
+      var vid = phGetVideoId();
+      if(!vid){ setErr(); return; }
+      var su = new URL(PH_DUBS_START);
+      su.searchParams.set('id', vid); su.searchParams.set('format', String(format));
+      phFetchJson(su.toString(), 25000).then(function(sd){
+        if(!sd||!sd.success||!sd.progressId){ setErr(); return; }
+        var stUrl = new URL(PH_DUBS_STATUS);
+        stUrl.searchParams.set('id', sd.progressId);
+        pollDubs(stUrl.toString());
+      }).catch(function(){ setErr(); });
+      return;
+    }
+    var url = new URL('/ajax/download.php', bases[i]);
+    url.searchParams.set('copyright','0');
+    url.searchParams.set('allow_extended_duration','1');
+    url.searchParams.set('format', String(format));
+    url.searchParams.set('url', videoURL);
+    url.searchParams.set('api', PH_DL_KEY);
+    phFetchJson(url.toString(), 25000).then(function(d){
+      if(!d||!d.success||!d.progress_url) throw new Error('no progress_url');
+      pollSN(d.progress_url);
+    }).catch(function(){ tryNext(i+1); });
+  }
+  tryNext(0);
+}
+
+function makeBox(type) {
+  var isVid = type === 'video';
+  var selectHtml = isVid
+    ? '<select class="ph-sel-v"><option selected disabled>Select video quality</option>'
+      +'<option value="144">144p MP4</option><option value="240">240p MP4</option>'
+      +'<option value="360">360p MP4</option><option value="480">480p MP4</option>'
+      +'<option value="720">720p HD MP4</option>'
+      +'<option value="1080">1080p Full HD MP4 (default)</option>'
+      +'<option value="4k">4K 2160p WEBM</option><option value="8k">8K 4320p WEBM</option></select>'
+    : '<select class="ph-sel-a"><option selected disabled>Select audio format</option>'
+      +'<option value="flac">FLAC (Ultra HQ)</option><option value="wav">WAV (Ultra HQ)</option>'
+      +'<option value="webm">WEBM (Ultra HQ)</option><option value="mp3">MP3 (default)</option>'
+      +'<option value="m4a">M4A</option><option value="aac">AAC</option>'
+      +'<option value="opus">OPUS</option><option value="ogg">OGG</option></select>';
+  var btnCls = isVid ? 'v' : 'a';
+  return '<div class="ph-dl-box" id="ph-box-'+(isVid?'v':'a')+'">'
+    + selectHtml
+    + '<div class="ph-dl-info" style="display:none">'
+    + '<span class="ph-dl-text"></span><span class="ph-dl-qual"></span></div>'
+    + '<div class="ph-dl-acts" style="display:none">'
+    + '<button class="ph-btn '+btnCls+'" style="display:none">Download</button>'
+    + '<button class="ph-retry" style="display:none">Retry</button>'
+    + '<button class="ph-pr-retry" style="display:none">&#x21BB;</button>'
+    + '<button class="ph-dl-again" style="display:none">&#x2B07; Save</button>'
+    + '</div>'
+    + '<div class="ph-prog-wrap" style="display:none">'
+    + '<div class="ph-prog-bar"><div class="ph-prog-fill"></div></div>'
+    + '<span class="ph-prog-txt">0%</span></div>'
+    + '<div class="ph-footer">Phabioski</div>'
+
+    + '</div>';
+}
+
 function openModal() {
-const els = createModalUI();
-if (els) {
-try {
-document.body.contains(els.overlay) || document.body.appendChild(els.overlay);
-} catch (e) {}
+  var prev = document.getElementById('ph-dl-modal');
+  if(prev){ prev.remove(); return; }
+
+  var overlay = document.createElement('div');
+  overlay.id = 'ph-dl-modal';
+  overlay.className = 'ph-overlay';
+
+  var panel = document.createElement('div');
+  panel.className = 'ph-panel';
+  panel.innerHTML = '<button class="ph-close" id="ph-dl-x">&#x2715;</button>'
+    + '<div class="ph-title">&#x2B07; Download</div>'
+    + '<div class="ph-section">&#x1F4FA; Video</div>'
+    + makeBox('video')
+    + '<hr class="ph-hr">'
+    + '<div class="ph-section">&#x1F3B5; Audio</div>'
+    + makeBox('audio');
+
+  overlay.appendChild(panel);
+  document.body.appendChild(overlay);
+
+  document.getElementById('ph-dl-x').onclick = function(){ overlay.remove(); };
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) overlay.remove(); });
+
+  function wireSelect(sel, type) {
+    sel.addEventListener('change', function(e){
+      var val = e.target.value; if(!val) return;
+      var box = panel.querySelector('#ph-box-'+(type==='video'?'v':'a'));
+      box.classList.add(type); box.classList.remove('done');
+      box.querySelector('.ph-dl-info').style.display = 'flex';
+      box.querySelector('.ph-dl-text').textContent = 'Download '+val.toUpperCase()+' \u2014 please wait\u2026';
+      box.querySelector('.ph-dl-qual').textContent = val.toUpperCase();
+      box.querySelector('.ph-dl-acts').style.display = 'flex';
+      box.querySelector('.ph-btn').style.display = 'block';
+      box.querySelector('.ph-retry').style.display = 'none';
+      box.querySelector('.ph-prog-wrap').style.display = 'none';
+      box.dataset.quality = val; box.dataset.type = type;
+    });
+  }
+  wireSelect(panel.querySelector('.ph-sel-v'), 'video');
+  wireSelect(panel.querySelector('.ph-sel-a'), 'audio');
+
+  panel.addEventListener('click', function(e){
+    var t = e.target;
+    var clicked = t.closest('.ph-btn')||t.closest('.ph-retry')||t.closest('.ph-pr-retry')||t.closest('.ph-dl-again');
+    if(!clicked) return;
+    var box = clicked.closest('.ph-dl-box');
+    if(!box) return;
+    if(clicked.classList.contains('ph-dl-again')){
+      var u = box.dataset.lastUrl; if(u) window.open(u); return;
+    }
+    var q = box.dataset.quality, tp = box.dataset.type;
+    if(!q||!tp) return;
+    if(clicked.classList.contains('ph-pr-retry')){
+      box.dataset.downloading='false'; box.dataset.urlOpened='false'; box.dataset.lastUrl='';
+      var da=box.querySelector('.ph-dl-again'); if(da) da.style.display='none';
+    }
+    phStartDownload(q, box);
+  });
 }
-}
+
 function closeModal() {
-if (_modalElements) {
-try {
-const ss = _modalElements.overlay?.querySelector('[role="listbox"]');
-ss && "function" == typeof ss.destroy && ss.destroy();
-_modalElements.overlay && _modalElements.overlay.parentNode && _modalElements.overlay.parentNode.removeChild(_modalElements.overlay);
-} catch (e) {}
-_modalElements = null;
+  var m = document.getElementById('ph-dl-modal'); if(m) m.remove();
 }
+
+// Expose for handleDirectDownload
+if(typeof window !== 'undefined') {
+  window.YouTubePlusDownload = {
+    openModal: openModal,
+    closeModal: closeModal,
+    version: '3.0'
+  };
+  window.YouTubeDownload = {
+    openModal: openModal,
+    version: '3.0'
+  };
+  // createDownloadButtonManager stub: creates the download button in the player controls
+  window.YouTubePlusDownloadButton = {
+    createDownloadButtonManager: function(config) {
+      var settings = (config && config.settings) || {};
+      return {
+        addDownloadButton: function(controls) {
+          if (!settings.enableDownload) return;
+          try {
+            var existing = controls.querySelector('.ytp-download-button');
+            if (existing) existing.remove();
+          } catch(e) {}
+          var btn = document.createElement('div');
+          btn.className = 'ytp-button ytp-download-button';
+          btn.setAttribute('title', 'Download');
+          btn.setAttribute('tabindex', '0');
+          btn.setAttribute('role', 'button');
+          btn.style.cursor = 'pointer';
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+          btn.addEventListener('click', function() { openModal(); });
+          btn.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') openModal(); });
+          try { controls.insertBefore(btn, controls.firstChild); } catch(e) { controls.appendChild(btn); }
+        }
+      };
+    }
+  };
 }
-const buildUrl = (template, videoId, videoUrl) => (template || "").replace("{videoId}", videoId || "").replace("{videoUrl}", encodeURIComponent(videoUrl || ""));
-const positionDropdown = (() => {
-let rafId = null;
-let pendingButton = null;
-let pendingDropdown = null;
-const applyPosition = () => {
-if (!pendingButton || !pendingDropdown) {
-return;
-}
-const rect = pendingButton.getBoundingClientRect();
-const left = Math.max(8, rect.left + rect.width / 2 - 75);
-const bottom = Math.max(8, window.innerHeight - rect.top + 12);
-pendingDropdown.style.left = `${left}px`;
-pendingDropdown.style.bottom = `${bottom}px`;
-rafId = null;
-pendingButton = null;
-pendingDropdown = null;
-};
-return (button, dropdown) => {
-pendingButton = button;
-pendingDropdown = dropdown;
-null === rafId && (rafId = requestAnimationFrame(applyPosition));
-};
-})();
-const createDownloadActions = (tFn, ytUtils) => {
-const handleDirectDownload = async () => {
-const api = await (timeout => new Promise(resolve => {
-let waited = 0;
-if (void 0 !== window.YouTubePlusDownload) {
-return resolve(window.YouTubePlusDownload);
-}
-const id = createVisibilityAwareInterval(() => {
-waited += 200;
-if (void 0 !== window.YouTubePlusDownload) {
-id.stop();
-return resolve(window.YouTubePlusDownload);
-}
-if (waited >= timeout) {
-id.stop();
-return resolve(void 0);
-}
-}, 200);
-try {
-window.YouTubeUtils?.cleanupManager?.register && window.YouTubeUtils.cleanupManager.register(() => id.stop());
-} catch (e) {}
-}))(2e3);
-if (api) {
-try {
-if ("function" == typeof api.openModal) {
-api.openModal();
-return;
-}
-if ("function" == typeof api.downloadVideo) {
-await api.downloadVideo({
-format: "video",
-quality: "1080"
-});
-return;
-}
-} catch (err) {
-window.console.error("[YouTube+] Direct download invocation failed:", err);
-}
-ytUtils.NotificationManager.show(tFn("directDownloadModuleNotAvailable"), {
-duration: 3e3,
-type: "error"
-});
-} else {
-window.console.error("[YouTube+] Direct download module not loaded");
-ytUtils.NotificationManager.show(tFn("directDownloadModuleNotAvailable"), {
-duration: 3e3,
-type: "error"
-});
-}
-};
-const handleYTDLDownload = url => {
-const videoId = new URLSearchParams(location.search).get("v");
-const videoUrl = videoId ? `https://www.youtube.com/watch?v=${videoId}` : location.href;
-navigator.clipboard.writeText(videoUrl).then(() => {
-ytUtils.NotificationManager.show(tFn("copiedToClipboard"), {
-duration: 2e3,
-type: "success"
-});
-}).catch(() => {
-(async (text, tFn, notificationMgr) => {
-try {
-if (navigator.clipboard?.writeText) {
-await navigator.clipboard.writeText(text);
-notificationMgr.show(tFn("copiedToClipboard"), {
-duration: 2e3,
-type: "success"
-});
-return;
-}
-const ta = document.createElement("textarea");
-ta.value = text;
-ta.setAttribute("readonly", "");
-Object.assign(ta.style, {
-position: "fixed",
-left: "-9999px",
-top: "-9999px",
-opacity: "0"
-});
-document.body.appendChild(ta);
-ta.select();
-ta.setSelectionRange(0, text.length);
-let copied = !1;
-try {
-copied = document.execCommand("copy");
-} catch (e) {
-logger.warn("[Download] execCommand copy not supported");
-}
-document.body.removeChild(ta);
-copied ? notificationMgr.show(tFn("copiedToClipboard"), {
-duration: 2e3,
-type: "success"
-}) : notificationMgr.show(tFn("copyFailed") || "Copy failed", {
-duration: 2e3,
-type: "error"
-});
-} catch (e) {
-logger.warn("[Download] Clipboard copy failed:", e);
-notificationMgr.show(tFn("copyFailed") || "Copy failed", {
-duration: 2e3,
-type: "error"
-});
-}
-})(videoUrl, tFn, ytUtils.NotificationManager);
-});
-window.open(url, "_blank");
-};
-return {
-handleDirectDownload,
-handleYTDLDownload,
-openDownloadSite: (url, isYTDL, isDirect, dropdown, button) => {
-dropdown.classList.remove("visible");
-button.setAttribute("aria-expanded", "false");
-isDirect ? handleDirectDownload() : isYTDL ? handleYTDLDownload(url) : window.open(url, "_blank");
-}
-};
-};
-const setupDropdownHoverBehavior = (() => {
-let initialized = !1;
-const dropdownTimers = new WeakMap;
-const setTimer = (element, timerId) => dropdownTimers.set(element, timerId);
-const clearTimer = element => {
-const timerId = (element => dropdownTimers.get(element))(element);
-if (void 0 !== timerId) {
-clearTimeout(timerId);
-dropdownTimers.delete(element);
-}
-};
-const showDropdown = (button, dropdown) => {
-clearTimer(button);
-clearTimer(dropdown);
-positionDropdown(button, dropdown);
-dropdown.classList.add("visible");
-button.setAttribute("aria-expanded", "true");
-};
-const hideDropdown = (button, dropdown) => {
-clearTimer(button);
-clearTimer(dropdown);
-const timerId = setTimeout(() => {
-dropdown.classList.remove("visible");
-button.setAttribute("aria-expanded", "false");
-}, 180);
-setTimer(button, timerId);
-};
-return () => {
-(() => {
-if (!initialized) {
-initialized = !0;
-document.addEventListener("mouseenter", e => {
-const button = e.target?.closest?.(".ytp-download-button");
-if (button) {
-const dropdown = $(".download-options");
-if (dropdown) {
-clearTimer(button);
-clearTimer(dropdown);
-showDropdown(button, dropdown);
-}
-return;
-}
-const dropdown = e.target?.closest?.(".download-options");
-if (dropdown) {
-const button = $(".ytp-download-button");
-if (button) {
-clearTimer(button);
-clearTimer(dropdown);
-showDropdown(button, dropdown);
-}
-}
-}, !0);
-document.addEventListener("mouseleave", e => {
-const button = e.target?.closest?.(".ytp-download-button");
-if (button) {
-const dropdown = $(".download-options");
-if (dropdown) {
-clearTimer(button);
-clearTimer(dropdown);
-const timerId = setTimeout(() => hideDropdown(button, dropdown), 180);
-setTimer(button, timerId);
-}
-return;
-}
-const dropdown = e.target?.closest?.(".download-options");
-if (dropdown) {
-const button = $(".ytp-download-button");
-if (button) {
-clearTimer(button);
-clearTimer(dropdown);
-const timerId = setTimeout(() => hideDropdown(button, dropdown), 180);
-setTimer(dropdown, timerId);
-}
-}
-}, !0);
-document.addEventListener("keydown", e => {
-const button = e.target?.closest?.(".ytp-download-button");
-if (button && ("Enter" === e.key || " " === e.key)) {
-const dropdown = $(".download-options");
-if (!dropdown) {
-return;
-}
-dropdown.classList.contains("visible") ? hideDropdown(button, dropdown) : showDropdown(button, dropdown);
-}
-});
-}
-})();
-};
-})();
-const createDownloadButtonManager = config => {
-const {settings, t: tFn, getElement, YouTubeUtils: ytUtils} = config;
-const actions = createDownloadActions(tFn, ytUtils);
-const buildDownloadSites = (tFn => (customization, enabledSites, videoId, videoUrl) => {
-const baseSites = [ {
-key: "externalDownloader",
-name: customization?.externalDownloader?.name || "SSYouTube",
-url: buildUrl(customization?.externalDownloader?.url || "https://ssyoutube.com/watch?v={videoId}", videoId, videoUrl),
-isYTDL: !1,
-isDirect: !1
-}, {
-key: "ytdl",
-name: "by YTDL",
-url: "http://localhost:5005",
-isYTDL: !0,
-isDirect: !1
-}, {
-key: "direct",
-name: tFn("directDownload"),
-url: "#",
-isYTDL: !1,
-isDirect: !0
-} ];
-// [DISABLED] Download menu: only direct download, no dropdown
-// const downloadSites = baseSites.filter(s => !1 !== enabledSites[s.key]);
-const downloadSites = baseSites.filter(s => s.isDirect);
-return {
-baseSites,
-downloadSites
-};
-})(tFn);
-const addDownloadButton = controls => {
-if (!settings.enableDownload) {
-return;
-}
-try {
-const existingBtn = controls.querySelector(".ytp-download-button");
-existingBtn && existingBtn.remove();
-} catch (e) {}
-const videoId = new URLSearchParams(location.search).get("v");
-const videoUrl = videoId ? `https://www.youtube.com/watch?v=${videoId}` : location.href;
-const customization = settings.downloadSiteCustomization || {
-externalDownloader: {
-name: "SSYouTube",
-url: "https://ssyoutube.com/watch?v={videoId}"
-}
-};
-const enabledSites = settings.downloadSites || {
-externalDownloader: !0,
-ytdl: !0,
-direct: !0
-};
-const {downloadSites} = buildDownloadSites(customization, enabledSites, videoId, videoUrl);
-const button = (tFn => {
-const button = document.createElement("div");
-button.className = "ytp-button ytp-download-button";
-button.setAttribute("title", tFn("downloadOptions"));
-button.setAttribute("tabindex", "0");
-button.setAttribute("role", "button");
-button.setAttribute("aria-haspopup", "true");
-button.setAttribute("aria-expanded", "false");
-_setSafeHTML(button, '\n      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: var(--darkreader-text-ffffff, #cad3f5);" data-darkreader-inline-stroke=""></path> <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: var(--darkreader-text-ffffff, #cad3f5);" data-darkreader-inline-stroke=""></path></svg>\n    ');
-return button;
-})(tFn);
-if (1 === downloadSites.length) {
-const singleSite = downloadSites[0];
-button.style.cursor = "pointer";
-const tempDropdown = document.createElement("div");
-button.addEventListener("click", () => actions.openDownloadSite(singleSite.url, singleSite.isYTDL, singleSite.isDirect, tempDropdown, button));
-controls.insertBefore(button, controls.firstChild);
-return;
-}
-const dropdown = ((downloadSites, button, openDownloadSiteFn) => {
-const options = document.createElement("div");
-options.className = "download-options";
-options.setAttribute("role", "menu");
-const list = document.createElement("div");
-list.className = "download-options-list";
-downloadSites.forEach(site => {
-const opt = document.createElement("div");
-opt.className = "download-option-item";
-opt.textContent = site.name;
-opt.setAttribute("role", "menuitem");
-opt.setAttribute("tabindex", "0");
-opt.dataset.url = site.url;
-opt.dataset.isYtdl = site.isYTDL ? "true" : "false";
-opt.dataset.isDirect = site.isDirect ? "true" : "false";
-list.appendChild(opt);
-});
-const handleOptionActivate = item => {
-item && openDownloadSiteFn(item.dataset.url, "true" === item.dataset.isYtdl, "true" === item.dataset.isDirect, options, button);
-};
-list.addEventListener("click", e => {
-const item = e.target?.closest?.(".download-option-item");
-item && list.contains(item) && handleOptionActivate(item);
-});
-list.addEventListener("keydown", e => {
-const item = e.target?.closest?.(".download-option-item");
-item && list.contains(item) && ("Enter" !== e.key && " " !== e.key || handleOptionActivate(item));
-});
-options.appendChild(list);
-return options;
-})(downloadSites, button, actions.openDownloadSite);
-const existingDownload = $(".download-options");
-existingDownload && existingDownload.remove();
-try {
-document.body.appendChild(dropdown);
-} catch (e) {
-button.appendChild(dropdown);
-}
-setupDropdownHoverBehavior(button, dropdown);
-try {
-if ("undefined" != typeof window) {
-window.youtubePlus = window.youtubePlus || {};
-window.youtubePlus.downloadButtonManager = window.youtubePlus.downloadButtonManager || {};
-window.youtubePlus.downloadButtonManager.addDownloadButton = controlsArg => addDownloadButton(controlsArg);
-window.youtubePlus.downloadButtonManager.refreshDownloadButton = () => {
-try {
-const btn = $(".ytp-download-button");
-const dd = $(".download-options");
-if (settings.enableDownload && (!btn || !dd)) {
-try {
-const controlsEl = $(".ytp-right-controls");
-controlsEl && addDownloadButton(controlsEl);
-} catch (e) {}
-}
-if (settings.enableDownload) {
-btn && btn.style && (btn.style.display = "");
-dd && dd.style && (dd.style.display = "");
-} else {
-btn && btn.style && (btn.style.display = "none");
-dd && dd.style && (dd.style.display = "none");
-}
-} catch (e) {}
-};
-window.youtubePlus.rebuildDownloadDropdown = () => {
-try {
-const controlsEl = $(".ytp-right-controls");
-if (!controlsEl) {
-return;
-}
-window.youtubePlus.downloadButtonManager.addDownloadButton(controlsEl);
-window.youtubePlus.settings = window.youtubePlus.settings || settings;
-} catch (e) {
-window.console.warn("[YouTube+] rebuildDownloadDropdown failed:", e);
-}
-};
-}
-} catch (e) {
-window.console.warn("[YouTube+] expose rebuildDownloadDropdown failed:", e);
-}
-controls.insertBefore(button, controls.firstChild);
-};
-return {
-addDownloadButton,
-refreshDownloadButton: () => {
-const button = getElement(".ytp-download-button");
-let dropdown = $(".download-options");
-if (settings.enableDownload && (!button || !dropdown)) {
-try {
-const controlsEl = $(".ytp-right-controls");
-if (controlsEl) {
-addDownloadButton(controlsEl);
-dropdown = $(".download-options");
-}
-} catch (e) {
-logger && logger.warn && logger.warn("[YouTube+] recreate download button failed:", e);
-}
-}
-if (settings.enableDownload) {
-button && button.style && (button.style.display = "");
-dropdown && dropdown.style && (dropdown.style.display = "");
-} else {
-button && button.style && (button.style.display = "none");
-dropdown && dropdown.style && (dropdown.style.display = "none");
-}
-}
-};
-};
-let initialized = !1;
-function init() {
-if (!initialized) {
-initialized = !0;
-try {
-window.YouTubeUtils && YouTubeUtils.logger && YouTubeUtils.logger.debug && YouTubeUtils.logger.debug("[YouTube+ Download] Unified module loaded");
-window.YouTubeUtils && YouTubeUtils.logger && YouTubeUtils.logger.debug && YouTubeUtils.logger.debug("[YouTube+ Download] Use window.YouTubePlusDownload.downloadVideo() to download");
-window.YouTubeUtils && YouTubeUtils.logger && YouTubeUtils.logger.debug && YouTubeUtils.logger.debug("[YouTube+ Download] Button manager available");
-} catch (e) {}
-}
-}
-if ("undefined" != typeof window) {
-window.YouTubePlusDownload = {
-downloadVideo,
-getSubtitles,
-downloadSubtitle,
-getVideoId,
-getVideoUrl,
-getVideoTitle,
-sanitizeFilename,
-formatBytes,
-DownloadConfig,
-openModal,
-init
-};
-window.YouTubePlusDownloadButton = {
-createDownloadButtonManager
-};
-}
-"undefined" != typeof window && (window.YouTubeDownload = {
-init,
-openModal,
-getVideoId,
-getVideoTitle,
-version: "3.0"
-});
-const ensureInit = () => {
-isRelevantRoute() && ("function" == typeof requestIdleCallback ? requestIdleCallback(init, {
-timeout: 1500
-}) : setTimeout(init, 0));
-};
-window.YouTubePlusLazyLoader ? window.YouTubePlusLazyLoader.register("download", ensureInit, {
-priority: 2,
-shouldLoad: isRelevantRoute
-}) : (cb => {
-"loading" === document.readyState ? document.addEventListener("DOMContentLoaded", cb, {
-once: !0
-}) : cb();
-})(ensureInit);
-"function" == typeof window.YouTubeUtils?.cleanupManager?.registerListener ? YouTubeUtils.cleanupManager.registerListener(document, "yt-navigate-finish", ensureInit, {
-passive: !0
-}) : document.addEventListener("yt-navigate-finish", ensureInit, {
-passive: !0
-});
+
 })();
 
 const enhancedSetTimeout_ = setTimeout;
@@ -14579,7 +11965,7 @@ return;
 const panel = getMusicSidePanelContainer();
 if (!panel) {
 window.YouTubeUtils?.createRetryScheduler?.({
-check: () => !(!byId("music-side-top-button") && config.enabled) || !!getMusicSidePanelContainer() && (createMusicSidePanelButton(), 
+check: () => !(!byId("music-side-top-button") && config.enabled) || !!getMusicSidePanelContainer() && (createMusicSidePanelButton(),
 !0),
 maxAttempts: 8,
 interval: 500
@@ -14913,7 +12299,7 @@ return !(window.YouTubeUtils?.loadFeatureEnabled?.("enableTabview") ?? 1);
 }
 const path = window.location.pathname;
 const {search} = window.location;
-return "/results" === path && search.includes("search_query=") || "/playlist" === path && search.includes("list="), 
+return "/results" === path && search.includes("search_query=") || "/playlist" === path && search.includes("list="),
 !0;
 };
 const handleTabButtonClick = e => {
@@ -15468,8 +12854,7 @@ return merged;
 };
 const CSS_BLOCKS = {
 thumbnailHover: "\n        /* yt-thumbnail hover */\n        #inline-preview-player {transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s !important; transform: scale(1) !important;}\n        #video-preview-container:has(#inline-preview-player) {transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; border-radius: 1.2em !important; overflow: hidden !important; transform: scale(1) !important;}\n        #video-preview-container:has(#inline-preview-player):hover {transform: scale(1.25) !important; box-shadow: rgba(0,0,0,0.5) 0px 0px 60px !important; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s !important;}\n        ytd-app #content {opacity: 1 !important; transition: opacity 0.3s ease-in-out !important;}\n        ytd-app:has(#video-preview-container:hover) #content {opacity: 0.5 !important; transition: opacity 4s ease-in-out 1s !important;}\n      ",
-// [DISABLED] Immersive Search Zoom - zooming/centering search bar when focused (YouTube)
-// immersiveSearch: '\n        /* yt-Immersive search */\n        #page-manager, yt-searchbox {transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.35) !important;}\n        #masthead yt-searchbox button[aria-label="Search"] {display: none !important;}\n        .ytSearchboxComponentInputBox {border-radius: 2em !important;}\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) {position: relative !important; left: 0vw !important; top: -30vh !important; height: 40px !important; max-width: 600px !important; transform: scale(1) !important;}\n        @media only screen and (min-width: 1400px) {yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) { height: 60px !important; max-width: 700px !important; transform: scale(1.1) !important;}}\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) .ytSearchboxComponentInputBox,\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {background-color: var(--yt-bg-primary) !important; box-shadow: black 0 0 30px !important;}\n        @media (prefers-color-scheme: dark) {\n          yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) .ytSearchboxComponentInputBox,\n          yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {background-color: var(--yt-modal-bg) !important;}\n        }\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {margin-top: 10px !important;}\n        @media only screen and (min-width: 1400px) {yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {margin-top: 30px !important;}}\n        .ytd-masthead #center:has(.ytSearchboxComponentInputBoxHasFocus) {height: 100vh !important; width: 100vw !important; left: 0 !important; top: 0 !important; position: fixed !important; justify-content: center !important; align-items: center !important;}\n        #content:has(.ytSearchboxComponentInputBoxHasFocus) #page-manager {filter: blur(20px) !important; transform: scale(1.05) !important;}\n      ',
+immersiveSearch: '\n        /* yt-Immersive search */\n        #page-manager, yt-searchbox {transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.35) !important;}\n        #masthead yt-searchbox button[aria-label="Search"] {display: none !important;}\n        .ytSearchboxComponentInputBox {border-radius: 2em !important;}\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) {position: relative !important; left: 0vw !important; top: -30vh !important; height: 40px !important; max-width: 600px !important; transform: scale(1) !important;}\n        @media only screen and (min-width: 1400px) {yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) { height: 60px !important; max-width: 700px !important; transform: scale(1.1) !important;}}\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) .ytSearchboxComponentInputBox,\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {background-color: var(--yt-bg-primary) !important; box-shadow: black 0 0 30px !important;}\n        @media (prefers-color-scheme: dark) {\n          yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) .ytSearchboxComponentInputBox,\n          yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {background-color: var(--yt-modal-bg) !important;}\n        }\n        yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {margin-top: 10px !important;}\n        @media only screen and (min-width: 1400px) {yt-searchbox:has(.ytSearchboxComponentInputBoxHasFocus) #i0 {margin-top: 30px !important;}}\n        .ytd-masthead #center:has(.ytSearchboxComponentInputBoxHasFocus) {height: 100vh !important; width: 100vw !important; left: 0 !important; top: 0 !important; position: fixed !important; justify-content: center !important; align-items: center !important;}\n        #content:has(.ytSearchboxComponentInputBoxHasFocus) #page-manager {filter: blur(20px) !important; transform: scale(1.05) !important;}\n      ',
 hideVoiceSearch: "\n        /* No voice search button */\n        #voice-search-button {display: none !important;}\n      ",
 transparentHeader: "\n        /* Transparent header */\n        :root{\n          --yt-spec-base-background: transparent;\n          --ytd-masthead-background: transparent;\n          --yt-spec-brand-background-primary: transparent;\n          --yt-spec-brand-background-solid: transparent;\n          --yt-spec-general-background-a: transparent;\n          --yt-spec-raised-background: transparent;\n          --yt-spec-additive-background: transparent;\n        }\n        #masthead-container,\n        #masthead,\n        ytd-masthead,\n        #background.ytd-masthead,\n        ytd-masthead #background,\n        ytd-masthead #container,\n        ytd-masthead #contentContainer,\n        ytd-masthead #end,\n        ytd-masthead #start,\n        ytd-masthead #center,\n        ytd-masthead #frosted-glass,\n        ytd-masthead #background-content,\n        #frosted-glass,\n        ytd-masthead tp-yt-app-header-layout,\n        ytd-mini-guide-renderer,\n        ytd-topbar-logo-renderer,\n        ytd-app #masthead,\n        ytd-app #masthead-container,\n        tp-yt-app-header-layout #masthead-container {\n          background-color: transparent !important;\n          background: transparent !important;\n          box-shadow: none !important;\n        }\n      ",
 hideSideGuide: '\n        /* Hide side guide */\n        ytd-mini-guide-renderer, [theater=""] #contentContainer::after {display: none !important;}\n        tp-yt-app-drawer > #contentContainer:not([opened=""]),\n        #contentContainer:not([opened=""]) #guide-content,\n        ytd-mini-guide-renderer,\n        ytd-mini-guide-entry-renderer {background-color: var(--yt-spec-text-primary-inverse) !important; background: var(--yt-spec-text-primary-inverse) !important;}\n        #content:not(:has(#contentContainer[opened=""])) #page-manager {margin-left: 0 !important;}\n        ytd-app:not([guide-persistent-and-visible=""]) tp-yt-app-drawer > #contentContainer {background-color: var(--yt-spec-text-primary-inverse) !important;}\n        ytd-alert-with-button-renderer {align-items: center !important; justify-content: center !important;}\n      ',
@@ -15497,8 +12882,7 @@ const z = settings?.zenStyles || {};
 const themeVariant = z.themeVariant || "glass";
 let css = "";
 z.thumbnailHover && (css += CSS_BLOCKS.thumbnailHover);
-// [DISABLED] Immersive Search Zoom activation
-// z.immersiveSearch && (css += CSS_BLOCKS.immersiveSearch);
+z.immersiveSearch && (css += CSS_BLOCKS.immersiveSearch);
 z.hideVoiceSearch && (css += CSS_BLOCKS.hideVoiceSearch);
 z.transparentHeader && (css += CSS_BLOCKS.transparentHeader);
 z.cleanSideGuide && (css += CSS_BLOCKS.cleanSideGuide);
@@ -25638,8 +23022,7 @@ if (!s.enableMusic) {
 return;
 }
 const styleParts = [ "\n        /* Remove borders and shadows from nav/guide when bauhaus sidenav is enabled */\n        ytmusic-app-layout[is-bauhaus-sidenav-enabled] #nav-bar-background.ytmusic-app-layout { border-bottom: none !important; box-shadow: none !important; }\n        ytmusic-app-layout[is-bauhaus-sidenav-enabled] #nav-bar-divider.ytmusic-app-layout { border-top: none !important; }\n        ytmusic-app-layout[is-bauhaus-sidenav-enabled] #mini-guide-background.ytmusic-app-layout { border-right: 0 !important; }\n        ytmusic-nav-bar, ytmusic-app-layout[is-bauhaus-sidenav-enabled] .ytmusic-nav-bar { border: none !important; box-shadow: none !important; }\n        /* Center the settings button in the top nav bar (fixes it being rendered at the bottom) */\n        ytmusic-settings-button.style-scope.ytmusic-nav-bar, ytmusic-nav-bar ytmusic-settings-button.style-scope.ytmusic-nav-bar {position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; bottom: auto !important; margin: 0 !important; z-index: 1000 !important;}\n        /* Center the search box in the top nav bar */\n        ytmusic-search-box, ytmusic-nav-bar ytmusic-search-box, ytmusic-searchbox, ytmusic-nav-bar ytmusic-searchbox {position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; margin: 0 !important; max-width: 75% !important; width: auto !important; z-index: 900 !important;}\n  " ];
-// [DISABLED] Immersive Search Zoom activation for YouTube Music
-// s.immersiveSearchStyles && styleParts.push("\n      /* yt-Immersive search behaviour for YouTube Music: expand/center the search when focused */\n      ytmusic-search-box:has(input:focus), ytmusic-searchbox:has(input:focus), ytmusic-search-box:focus-within, ytmusic-searchbox:focus-within {position: fixed !important; left: 50% !important; top: 12vh !important; transform: translateX(-50%) !important; height: auto !important; max-width: 900px !important; width: min(90vw, 900px) !important; z-index: 1200 !important; display: block !important;}\n      @media only screen and (min-width: 1400px) {ytmusic-search-box:has(input:focus), ytmusic-searchbox:has(input:focus) {top: 10vh !important; max-width: 1000px !important; transform: translateX(-50%) scale(1.05) !important;}}\n      /* Highlight the input and add a soft glow */\n      ytmusic-search-box:has(input:focus) input, ytmusic-searchbox:has(input:focus) input, ytmusic-search-box:focus-within input, ytmusic-searchbox:focus-within input {background-color: var(--yt-bg-primary) !important; box-shadow: black 0 0 30px !important;}\n      @media (prefers-color-scheme: dark) {ytmusic-search-box:has(input:focus) input, ytmusic-searchbox:has(input:focus) input {background-color: var(--yt-modal-bg) !important;}}\n      /* Blur/scale the main content when immersive search is active */\n      ytmusic-app-layout:has(ytmusic-search-box:has(input:focus)) #main-panel, ytmusic-app-layout:has(ytmusic-searchbox:has(input:focus)) #main-panel {filter: blur(18px) !important; transform: scale(1.03) !important;}\n    ");
+s.immersiveSearchStyles && styleParts.push("\n      /* yt-Immersive search behaviour for YouTube Music: expand/center the search when focused */\n      ytmusic-search-box:has(input:focus), ytmusic-searchbox:has(input:focus), ytmusic-search-box:focus-within, ytmusic-searchbox:focus-within {position: fixed !important; left: 50% !important; top: 12vh !important; transform: translateX(-50%) !important; height: auto !important; max-width: 900px !important; width: min(90vw, 900px) !important; z-index: 1200 !important; display: block !important;}\n      @media only screen and (min-width: 1400px) {ytmusic-search-box:has(input:focus), ytmusic-searchbox:has(input:focus) {top: 10vh !important; max-width: 1000px !important; transform: translateX(-50%) scale(1.05) !important;}}\n      /* Highlight the input and add a soft glow */\n      ytmusic-search-box:has(input:focus) input, ytmusic-searchbox:has(input:focus) input, ytmusic-search-box:focus-within input, ytmusic-searchbox:focus-within input {background-color: var(--yt-bg-primary) !important; box-shadow: black 0 0 30px !important;}\n      @media (prefers-color-scheme: dark) {ytmusic-search-box:has(input:focus) input, ytmusic-searchbox:has(input:focus) input {background-color: var(--yt-modal-bg) !important;}}\n      /* Blur/scale the main content when immersive search is active */\n      ytmusic-app-layout:has(ytmusic-search-box:has(input:focus)) #main-panel, ytmusic-app-layout:has(ytmusic-searchbox:has(input:focus)) #main-panel {filter: blur(18px) !important; transform: scale(1.03) !important;}\n    ");
 s.hoverStyles && styleParts.push("\n        .ytmusic-guide-renderer {opacity: 0.01 !important; transition: opacity 0.5s ease-in-out !important;}        \n        .ytmusic-guide-renderer:hover { opacity: 1 !important;}        \n        ytmusic-app[is-bauhaus-sidenav-enabled] #guide-wrapper.ytmusic-app {background-color: transparent !important; border: none !important;}    \n    ");
 s.playerSidebarStyles && styleParts.push('\n        #side-panel {width: 40em !important; height: 80vh !important; padding: 0 2em !important; right: -30em !important; top: 10vh !important; opacity: 0 !important; position: absolute !important; transition: all 0.3s ease-in-out !important; backdrop-filter: blur(5px) !important; background-color: var(--yt-panel-overlay-subtle) !important; border-radius: 1em !important; box-shadow: var(--yt-shadow-deep-1) 0px -36px 30px inset, var(--yt-shadow-deep-2) 0px -79px 40px inset, var(--yt-shadow-deep-3) 0px 2px 1px, var(--yt-shadow-deep-4) 0px 4px 2px, var(--yt-shadow-deep-4) 0px 8px 4px, var(--yt-shadow-deep-4) 0px 16px 8px, var(--yt-shadow-deep-4) 0px 32px 16px !important;}        \n        #side-panel tp-yt-paper-tabs {transition: height 0.3s ease-in-out !important; height: 0 !important;}        \n        #side-panel:hover {right: 0 !important; opacity: 1 !important;}        \n        #side-panel:hover tp-yt-paper-tabs {height: 4em !important;}        \n        #side-panel:has(ytmusic-tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"]):not(:has(ytmusic-message-renderer:not([style="display: none;"]))) {right: 0 !important; opacity: 1 !important;}        \n        #side-panel {min-width: auto !important;}\n      /* Allow JS to control visibility; ensure pointer-events and positioning only. */\n        #side-panel .ytmusic-top-button { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }\n      /* When button is placed inside the panel, prefer absolute positioning inside it\n         so it won\'t be forced to fixed by the global rule. Use high specificity + !important */\n        #side-panel .ytmusic-top-button {position: absolute !important; bottom: 20px !important; right: 20px !important; z-index: 1200 !important;}\n    ');
 s.centeredPlayerStyles && styleParts.push('\n        ytmusic-app-layout:not([player-ui-state="FULLSCREEN"]) #main-panel {position: absolute !important; height: 70vh !important; max-width: 70vw !important; aspect-ratio: 1 !important; top: 50vh !important; left: 50vw !important; transform: translate(-50%, -50%) !important;}        \n        #player-page {padding: 0 !important; margin: 0 !important; left: 0 !important; top: 0 !important; height: 100% !important; width: 100% !important;}\n    ');
