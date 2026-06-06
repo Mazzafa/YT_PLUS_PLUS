@@ -37,7 +37,7 @@
 // @connect             googlevideo.com
 // @connect             i.ytimg.com
 // @homepageURL         https://github.com/Mazzafa/YT_PLUS_PLUS
-// @downloadURL         https://github.com/Mazzafa/YT_PLUS_PLUS/blob/main/Youtube___-3_3_5_by_phabioski.js
+// @downloadURL         https://greasyfork.org/it/scripts/581354-youtube
 // ==/UserScript==
 !(function() {
 "use strict";
