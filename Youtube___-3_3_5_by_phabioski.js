@@ -4,9 +4,6 @@
 // @version             3.3.5
 // @author              Phabioski
 // @description         Download video, audio, subtitles, image-video, AD-Block, PiP and more
-// @homepageURL         https://github.com/Mazzafa/YT_PLUS_PLUS
-// @supportURL          https://github.com/Mazzafa/YT_PLUS_PLUS
-// @downloadURL         https://github.com/Mazzafa/YT_PLUS_PLUS/blob/main/yt%2B%2B__by.phabioski.js
 // @match               https://*.youtube.com/*
 // @match               https://music.youtube.com/*
 // @match               https://studio.youtube.com/*
@@ -40,8 +37,7 @@
 // @connect             googlevideo.com
 // @connect             i.ytimg.com
 // @homepageURL         https://github.com/Mazzafa/YT_PLUS_PLUS
-// @supportURL          https://github.com/Mazzafa
-// @downloadURL         https://github.com/Mazzafa/YT_PLUS_PLUS/blob/main/yt%2B%2B__by.phabioski.js
+// @downloadURL         https://github.com/Mazzafa/YT_PLUS_PLUS/blob/main/Youtube___-3_3_5_by_phabioski.js
 // ==/UserScript==
 !(function() {
 "use strict";
